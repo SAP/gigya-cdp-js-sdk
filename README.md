@@ -10,8 +10,7 @@ import {CDP} from "gigya-cdp-sdk";
 
 const sdk = new CDP({
     userKey: '123123123',
-    secret: '*************',
-    forceSimple: true
+    secret: '*************'
 }, { /* SDK Options */ });
 
 sdk.businessunits.for('123-buId').get().then(bu => bu.name);
