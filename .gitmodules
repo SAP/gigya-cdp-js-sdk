@@ -1,0 +1,3 @@
+[submodule "ts-rest-client"]
+	path = ts-rest-client
+	url = https://github.com/iBaryo/ts-rest-client.git
