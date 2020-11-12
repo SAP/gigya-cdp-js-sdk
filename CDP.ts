@@ -36,13 +36,13 @@ export class CDP {
     private _signer: ISigner;
     private _acls: { [wsId: string]: object } = {};
 
-    constructor(credentials: CredentialsType, public options?: Partial<typeof CDP.DefaultOptions>) {
+    constructor(credentials: CredentialsType, public options: Partial<typeof CDP.DefaultOptions> = {}) {
         this.setCredentials(credentials);
-        this.options = Object.assign({},
-            CDP.DefaultOptions,
-            {ignoreCertError: this.options.dataCenter.startsWith('il1')} as typeof options,
-            this.options
-        );
+        this.options = {
+            ...CDP.DefaultOptions,
+            ignoreCertError: this.options.dataCenter?.startsWith('il1') ?? CDP.DefaultOptions.ignoreCertError,
+            ...this.options
+        };
     }
 
     public get api() {
