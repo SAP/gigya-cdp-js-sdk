@@ -2,7 +2,7 @@ import {EntityApi, EntityDef} from "./ts-rest-client";
 import {
     Action,
     ActivityIndicator,
-    Application,
+    Application, Audience,
     BusinessUnit, Connector,
     Event, Journey,
     MergeRule, Purpose,
@@ -61,6 +61,7 @@ export type CDPEntitiesApi = {
             mergeRules: EntityApi<CDPEntityDef<MergeRule>>;
 
             journeys: EntityApi<CDPEntityDef<Journey>>;
+            audiences: EntityApi<CDPEntityDef<Audience>>;
         }>;
     }>;
 };

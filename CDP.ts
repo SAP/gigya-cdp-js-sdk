@@ -182,6 +182,7 @@ export class CDP {
                     return;
                 }
                 try {
+                    this.log(body);
                     resolve(JSON.parse(body));
                 } catch (ex) {
                     this.log(`failed to parse response body from request to ${uri}\n${body}`);

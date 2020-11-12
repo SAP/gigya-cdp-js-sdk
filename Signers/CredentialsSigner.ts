@@ -32,7 +32,10 @@ export class CredentialsSigner extends SimpleRequestSigner {
                     this._creds.secret,
                     `${request.protocol}://${request.domain.toLowerCase()}/${request.path}`,
                     request.method,
-                    requestParams);
+                    {
+                        ...requestParams,
+                        // _body: ''
+                    });
         }
 
         return signedReq;

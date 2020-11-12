@@ -7,7 +7,7 @@ import {ViewId} from "../View";
 import {AudienceCondition} from "./AudienceCondition";
 
 export type AudienceId = Id;
-export interface Index extends Entity<AudienceId> {
+export interface Audience extends Entity<AudienceId> {
   query: AudienceCondition;
   purposeIds: PurposeId[];
 
@@ -19,13 +19,13 @@ export interface Index extends Entity<AudienceId> {
 
 interface AudiencesEndpoints {
   '/businessUnit/$bUnit/views/$viewId/audiences': {
-    GET: (bUnit: BusinessUnitId, viewId: ViewId) => Promise<Index[]>;
-    POST: (bUnit: BusinessUnitId, viewId: ViewId, payload: Payload<Index>) => Promise<Index>;
+    GET: (bUnit: BusinessUnitId, viewId: ViewId) => Promise<Audience[]>;
+    POST: (bUnit: BusinessUnitId, viewId: ViewId, payload: Payload<Audience>) => Promise<Audience>;
   };
 
   '/businessUnit/$bUnit/views/$viewId/audiences/$audienceId': {
-    GET: (bUnit: BusinessUnitId, viewId: ViewId, audienceId: AudienceId) => Promise<Index>;
-    PUT: (bUnit: BusinessUnitId, viewId: ViewId, audienceId: AudienceId, payload: Payload<Index>) => Promise<Index>;
+    GET: (bUnit: BusinessUnitId, viewId: ViewId, audienceId: AudienceId) => Promise<Audience>;
+    PUT: (bUnit: BusinessUnitId, viewId: ViewId, audienceId: AudienceId, payload: Payload<Audience>) => Promise<Audience>;
     DELETE: (bUnit: BusinessUnitId, viewId: ViewId, audienceId: AudienceId) => Promise<void>;
   };
 

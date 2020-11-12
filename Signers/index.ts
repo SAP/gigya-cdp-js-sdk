@@ -16,6 +16,7 @@ export function getSigner(credentials: CredentialsType): ISigner | null {
     } else if (isRSACreds(credentials)) {
         return new AuthBearerSigner(credentials);
     } else if (isSecretCredentials(credentials)) {
+        credentials.forceSimple = true; // temp do to backend issue.
         return credentials.forceSimple ?
             new SimpleRequestSigner(credentials)
             : new CredentialsSigner(credentials);
