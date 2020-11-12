@@ -12,9 +12,9 @@ export interface Audience extends Entity<AudienceId> {
   purposeIds: PurposeId[];
 
   // not for GA
-  actions?: ActionId[];
-  schedule?: {};
-  readonly lastRunTime?: Date;
+  // actions?: ActionId[];
+  // schedule?: {};
+  // readonly lastRunTime?: Date;
 }
 
 interface AudiencesEndpoints {
