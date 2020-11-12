@@ -8,7 +8,7 @@ import {
     Event, Journey,
     MergeRule, Purpose,
     Segment,
-    View,
+    View, WithBusinessUnitId, WithProtected, WithViewId,
     Workspace
 } from "./entities";
 import {EventMapping} from "./entities/Event/EventMapping";
@@ -19,9 +19,15 @@ import {CustomerSchema} from "./entities/Schema";
 import {WithId, WithMetaData} from "./entities/common";
 
 
-export type ServerOnlyFields = keyof (WithId & WithMetaData);
+export type ServerOnlyFields = keyof (
+    WithId
+    & WithProtected
+    & WithMetaData
+    & WithBusinessUnitId &
+    WithViewId);
 
-export type CDPEntityDef<T extends object> = EntityDef<T, Extract<keyof T, ServerOnlyFields>>
+export type CDPEntityDef<T extends object, SFields extends keyof T = never> =
+    EntityDef<T, Extract<keyof T, ServerOnlyFields | SFields>>
 
 export type CDPEntitiesApi = {
     workspaces: EntityApi<CDPEntityDef<Workspace>, {
@@ -31,7 +37,7 @@ export type CDPEntitiesApi = {
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-        mappings: EntityApi<CDPEntityDef<Record<string, Array<{sourceField: string; targetField: string}>>>>; // deprecate this
+        mappings: EntityApi<CDPEntityDef<Record<string, Array<{ sourceField: string; targetField: string }>>>>; // deprecate this
 
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
@@ -65,7 +71,7 @@ export type CDPEntitiesApi = {
             audiences: EntityApi<CDPEntityDef<Audience>, {
                 activate: EntityApi
             }>;
-            test: EntityApi<CDPEntityDef<{vals: 'a'|'b'|'c'}>>;
+            test: EntityApi<CDPEntityDef<{ vals: 'a' | 'b' | 'c' }>>;
         }>;
     }>;
 };

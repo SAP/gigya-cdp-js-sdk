@@ -1,11 +1,11 @@
-import {Entity, Id} from "../common";
+import {Entity, Id, WithEnabled} from "../common";
 import {WithViewId} from "../View";
 import {WithBusinessUnitId} from "../BusinessUnit";
-import {ProfileFieldName} from "../common/Field";
+import {ProfileFieldName, WithProtected} from "../common/Field";
 
 export type MatchingRuleId = Id;
 
-export interface MatchingRule extends Entity<MatchingRuleId>, WithBusinessUnitId, WithViewId {
+export interface MatchingRule extends Omit<Entity<MatchingRuleId>, keyof WithEnabled>, WithProtected, WithBusinessUnitId, WithViewId {
     attributeName: ProfileFieldName;
     ucpResolutionPolicy: 'keepAll' | 'merge';
 }
