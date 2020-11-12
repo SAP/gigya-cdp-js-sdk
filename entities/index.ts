@@ -14,6 +14,9 @@ export * from './View';
 export * from './MatchingRule';
 export * from './MergeRule';
 export * from './Audience';
+export * from './Audience/AudienceCondition';
 export * from './Journey';
+export * from './Journey/JourneyCondition';
+
 
 

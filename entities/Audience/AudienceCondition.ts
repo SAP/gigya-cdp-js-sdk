@@ -11,7 +11,7 @@ export type AudienceCondition = Condition<
     | PurposeCondition>;
 
 
-const condition: AudienceCondition = {
+const conditionExample: AudienceCondition = {
     operator: "and",
     conditions: [
         {
@@ -91,5 +91,3 @@ const condition: AudienceCondition = {
         }
     ]
 };
-
-// x AND y AND (a OR b)

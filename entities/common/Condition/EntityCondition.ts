@@ -39,7 +39,7 @@ export interface SegmentStateCondition extends SimpleCondition {
     type: 'segment';
     name: string;
     values?: string[]; // one of
-    timeRange?: Condition<DateCondition>;
+    // timeRange?: Condition<DateCondition>;
 }
 
 export interface SegmentCondition extends SegmentStateCondition {
