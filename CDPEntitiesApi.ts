@@ -1,4 +1,5 @@
-import {EntityApi, EntityDef} from "./ts-rest-client";
+import {EntityDef} from "./ts-rest-client/interfaces/Entity";
+import {EntityApi} from "./ts-rest-client/interfaces/EntityApi"; // ts bug, import separately and directly
 import {
     Action,
     ActivityIndicator,
@@ -61,7 +62,10 @@ export type CDPEntitiesApi = {
             mergeRules: EntityApi<CDPEntityDef<MergeRule>>;
 
             journeys: EntityApi<CDPEntityDef<Journey>>;
-            audiences: EntityApi<CDPEntityDef<Audience>>;
+            audiences: EntityApi<CDPEntityDef<Audience>, {
+                activate: EntityApi
+            }>;
+            test: EntityApi<CDPEntityDef<{vals: 'a'|'b'|'c'}>>;
         }>;
     }>;
 };
