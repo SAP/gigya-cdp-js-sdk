@@ -5,7 +5,7 @@ export type ViewId = Id;
 
 export interface View extends WithBusinessUnitId {
   id: ViewId
-  type: 'marketing' | 'contextual';
+  type: 'Marketing' | 'Contextual';
   name: string;
 }
 

@@ -3,11 +3,11 @@ import {PurposeId} from "../purpose";
 import {ApplicationId} from "../Application";
 import {ActionId} from "../Action";
 import {BusinessUnitId} from "../BusinessUnit";
-import {ViewId} from "../View";
+import {ViewId, WithViewId} from "../View";
 import {AudienceCondition} from "./AudienceCondition";
 
 export type AudienceId = Id;
-export interface Audience extends Entity<AudienceId> {
+export interface Audience extends Entity<AudienceId>, WithViewId {
   query: AudienceCondition;
   purposeIds: PurposeId[];
 
