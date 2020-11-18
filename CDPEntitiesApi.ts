@@ -69,7 +69,7 @@ export type CDPEntitiesApi = {
 
             journeys: EntityApi<CDPEntityDef<Journey>>;
             audiences: EntityApi<CDPEntityDef<Audience>, {
-                activate: EntityApi
+                export: EntityApi
             }>;
             test: EntityApi<CDPEntityDef<{ vals: 'a' | 'b' | 'c' }>>;
         }>;

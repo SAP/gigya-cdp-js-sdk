@@ -23,6 +23,10 @@ type CloudStorageApplication = DirectApplication & CloudStorageResource;
 
 export type Application = DirectApplication | RESTApplication | CloudStorageApplication;
 
+export function isDirectApplication(app: Application): app is DirectApplication {
+    return 'type' in app;
+}
+
 export interface ApplicationAuth {
     schemeName: SecuritySchemeName;
     parameters: Record<string, string>;

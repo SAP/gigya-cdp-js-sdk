@@ -4,7 +4,6 @@ import {WithType} from "../common";
 export type AuthTypes = 'basic'|'oauth2';
 
 export interface AuthBase extends WithType<AuthTypes> {
-  // TODO
 }
 
 export interface CustomAuth extends JSONSchema7 {
