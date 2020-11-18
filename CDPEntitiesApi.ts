@@ -3,7 +3,7 @@ import {EntityApi} from "./ts-rest-client/interfaces/EntityApi"; // ts bug, impo
 import {
     Action,
     ActivityIndicator,
-    Application, Audience,
+    Application, ApplicationAuth, Audience,
     BusinessUnit, Connector,
     Event, Journey,
     MergeRule, Purpose,
@@ -46,6 +46,7 @@ export type CDPEntitiesApi = {
         activityIndicators: EntityApi<CDPEntityDef<ActivityIndicator>>;
         segments: EntityApi<CDPEntityDef<Segment>>;
         applications: EntityApi<CDPEntityDef<Application>, {
+            auth: EntityApi<CDPEntityDef<ApplicationAuth>>,
 
             dataevents: EntityApi<CDPEntityDef<Event>, {
                 // mappings: EntityApi<CDPEntityDef<EventMapping[]>>; // TBD
@@ -69,7 +70,8 @@ export type CDPEntitiesApi = {
 
             journeys: EntityApi<CDPEntityDef<Journey>>;
             audiences: EntityApi<CDPEntityDef<Audience>, {
-                export: EntityApi
+                export: EntityApi,
+                status: EntityApi,
             }>;
             test: EntityApi<CDPEntityDef<{ vals: 'a' | 'b' | 'c' }>>;
         }>;
