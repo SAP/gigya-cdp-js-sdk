@@ -3,7 +3,7 @@ import {HttpMethod, HttpProtocol, Req} from "./request";
 import {CredentialsType, getSigner, ISigner} from "./Signers";
 import {CDPEntitiesApi} from "./CDPEntitiesApi";
 import {AnonymousRequestSigner} from "./Signers/AnonymousRequestSigner";
-import request, {Headers, Response} from "request";
+import request, {CoreOptions, Headers, Response} from "request";
 import {wrap} from "./ts-rest-client";
 
 export type DataCenter = 'eu5' | `il1`;
@@ -156,22 +156,24 @@ export class CDP {
         if (qs)
             uri += `?${qs}`;
 
+        const reqOptions: CoreOptions = {
+            headers: {...req.headers, ['Content-type']: 'application/json'},
+            body,
+            // ca: ''
+        };
+
         if (this.options.ignoreCertError) {
             process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0 as any; // todo: restore it?
         }
 
         if (this.options.proxy) {
             this.log(`sending via proxy:`, this.options.proxy);
+            reqOptions.proxy = this.options.proxy;
+            reqOptions.tunnel = false;
         }
 
         return new Promise<T>((resolve, reject) => request[req.method](
-            uri,
-            {
-                headers: {...req.headers, ['Content-type']: 'application/json'},
-                body,
-                proxy: this.options.proxy
-                // ca: ''
-            }, (error: any, response: Response, body: any) => {
+            uri, reqOptions, (error: any, response: Response, body: any) => {
                 this.log(`request to ${req.method.toUpperCase()} ${uri} took ${(Date.now() - start) / 1000} seconds`);
                 if (error) {
                     this.log(`error:`, error, response, body);
