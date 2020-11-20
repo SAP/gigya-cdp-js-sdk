@@ -54,6 +54,7 @@ export type CDPEntitiesApi = {
                 event: EntityApi;
                 // events: EntityApi<EntityApi<Array<object>>>;
                 activate: EntityApi;
+                status: EntityApi;
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {
