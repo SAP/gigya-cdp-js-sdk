@@ -50,7 +50,7 @@ export type CDPEntitiesApi = {
 
             dataevents: EntityApi<CDPEntityDef<Event>, {
                 // mappings: EntityApi<CDPEntityDef<EventMapping[]>>; // TBD
-                schedule: EntityApi<CDPEntityDef<EventSchedule>>;
+                schedules: EntityApi<CDPEntityDef<EventSchedule>>;
                 event: EntityApi;
                 // events: EntityApi<EntityApi<Array<object>>>;
                 activate: EntityApi;
