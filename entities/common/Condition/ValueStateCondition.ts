@@ -9,7 +9,7 @@ export interface TransitionCondition {
 }
 
 export interface ExistCondition {
-    operator: 'exist';
+    operator: 'exists';
 }
 
 interface NumericCondition {
