@@ -1,4 +1,4 @@
-import {Entity, Id} from "./common";
+import {Entity, Id, WithEnabled} from "./common";
 import {JSONSchema7} from "json-schema";
 import {FieldName} from "./common/Field";
 
@@ -25,3 +25,17 @@ export enum SchemaType {
 
 export type ProfileSchemaName = 'profile';
 export type ActivitySchemaName = string;
+
+export type NormalizeStep = {
+    action: 'trimWhitespace' | 'removePunctuations'
+} | {
+    action: 'stringReplace';
+    findPattern: string; // regex
+    replaceWith: string;
+} ;
+
+export type WithNormalize = {
+    normalize: WithEnabled & {
+        steps: NormalizeStep[];
+    };
+};
