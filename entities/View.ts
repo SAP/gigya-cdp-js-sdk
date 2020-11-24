@@ -1,11 +1,10 @@
 import {WithBusinessUnitId} from './BusinessUnit';
-import {Id} from "./common";
+import {Id, WithType} from "./common";
 
 export type ViewId = Id;
-
-export interface View extends WithBusinessUnitId {
+export type ViewType = 'Marketing' | 'Contextual';
+export interface View extends WithBusinessUnitId, WithType<ViewType> {
   id: ViewId
-  type: 'Marketing' | 'Contextual';
   name: string;
 }
 
