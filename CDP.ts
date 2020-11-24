@@ -14,11 +14,25 @@ export const availableEnvs: Record<DataCenter, Env[]> = {
     eu5: ['prod', ...createArray(1, n => `st${n + 1}` as Env)]
 };
 
-export type CDPErrorResponse = { errorCode: string};
+export type CDPErrorResponse = { errorCode: string };
 export const asCDPError = (e: unknown) => e as CDPErrorResponse;
+
 export function isCDPError(e: any): e is CDPErrorResponse {
     return !!(e as CDPErrorResponse).errorCode;
 }
+
+export const PermissionGroups = {
+    sys_admins: {
+        name: '_cdp_sys_admins' as const,
+        endpoints: ['']
+    },
+    ingest: {
+        name: '_cdp_ingestion' as const,
+        endpoints: ['']
+    }
+};
+
+type PermissionGroupId = (typeof PermissionGroups)[keyof typeof PermissionGroups]['name'];
 
 export class CDP {
     public static DefaultOptions = {
@@ -51,45 +65,66 @@ export class CDP {
 
     private get admin() { // WIP
         return {
-            bootstrap: async ({tenant = 'rnd', wsName = `ws-${new Date().toDateString()}`, buName = `business unit`}) => {
-
+            createWorkspace: ({tenantID = 'rnd', wsName = `ws-${new Date().toDateString()}`, buName = `business unit`}) => {
+                return this.sendAdminReq<{ partnerID: string }>('createPartner', {
+                    tenantID,
+                    customData: {companyName: wsName},
+                    isCDP: true
+                }).then(r => r.partnerID);
             },
             permissions: {
-                for: (wsId: string) => ({
-                    has: (...paths: string[]) => this.hasPermissions(wsId, ...paths),
-                    userKeyHas: async (userKey: string, ...paths: string[]) => null,
-                    grant: async (userKey: string, ...paths: string[]) => null
+                forSelf() {
+                    return this.for();
+                },
+                for: (userKey = this._signer.userKey) => ({
+                    in: (wsId: string) => ({
+                        has: (...paths: string[]) => this.hasPermissions(wsId, ...paths),
+                        grant: (...groupIds: PermissionGroupId[]) => {
+                            return Promise.all(groupIds.map(groupID => this.sendAdminReq('updateGroup', {
+                                groupID,
+                                addUsers: userKey
+                            })));
+                        }
+                    })
                 })
             }
         };
     }
 
-    public async getACL(workspace: string) {
+    public async getACL(workspace: string, userKey = this._signer.userKey) {
         if (!this._acls[workspace]) {
-            if (this._signer instanceof AnonymousRequestSigner) {
-                this.log(`anonymous user: no permissions`);
-                this._acls[workspace] = {};
-            } else {
-                const permissionsDc = this.options.dataCenter == 'eu5' ? 'us1' : 'il1';
-                let req: Req = this.sign({
-                    protocol: this.options.protocol,
-                    domain: `admin.${permissionsDc}.${this.options.baseDomain}`,
-                    path: `admin.getEffectiveACL`,
-                    method: 'get',
-                    query: {},
-                    params: {
-                        partnerID: workspace,
-                        targetUserKey: this._signer.userKey
-                    },
-                    headers: {},
+            try {
+                this._acls[workspace] = await this.sendAdminReq('getEffectiveACL', {
+                    partnerID: workspace,
+                    targetUserKey: userKey
                 });
-
-                this.log(`sending `, req);
-                this._acls[workspace] = await this.httpSend<object>(req);
+            } catch (e) {
+                this._acls[workspace] = {};
             }
         }
 
         return this._acls[workspace];
+    }
+
+    private sendAdminReq<T>(method: string, params: object = {}): Promise<CDPErrorResponse & T> {
+        if (this._signer instanceof AnonymousRequestSigner) {
+            this.log(`anonymous user: no permissions`);
+            throw 'no permissions';
+        } else {
+            const permissionsDc = this.options.dataCenter == 'eu5' ? 'us1' : 'il1';
+            const req: Req = this.sign({
+                protocol: this.options.protocol,
+                domain: `admin.${permissionsDc}.${this.options.baseDomain}`,
+                path: `admin.${method}`,
+                method: 'get',
+                query: {},
+                params,
+                headers: {},
+            });
+
+            this.log(`sending `, req);
+            return this.httpSend<CDPErrorResponse & T>(req);
+        }
     }
 
     public async hasPermissions(workspace: string, ...paths: string[]) {
