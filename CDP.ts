@@ -21,18 +21,10 @@ export function isCDPError(e: any): e is CDPErrorResponse {
     return !!(e as CDPErrorResponse).errorCode;
 }
 
-export const PermissionGroups = {
-    sys_admins: {
-        name: '_cdp_sys_admins' as const,
-        endpoints: ['']
-    },
-    ingest: {
-        name: '_cdp_ingestion' as const,
-        endpoints: ['']
-    }
-};
-
-type PermissionGroupId = (typeof PermissionGroups)[keyof typeof PermissionGroups]['name'];
+export const enum PermissionGroup {
+    sys_admins = '_cdp_sys_admins',
+    ingest = '_cdp_ingestion'
+}
 
 export class CDP {
     public static DefaultOptions = {
@@ -79,7 +71,7 @@ export class CDP {
                 for: (userKey = this._signer.userKey) => ({
                     in: (wsId: string) => ({
                         has: (...paths: string[]) => this.hasPermissions(wsId, ...paths),
-                        grant: (...groupIds: PermissionGroupId[]) => {
+                        grant: (...groupIds: PermissionGroup[]) => {
                             return Promise.all(groupIds.map(groupID => this.sendAdminReq('updateGroup', {
                                 groupID,
                                 addUsers: userKey
