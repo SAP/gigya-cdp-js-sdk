@@ -8,7 +8,7 @@ import {
     Event, Journey,
     MergeRule, Purpose,
     Segment,
-    View, WithBusinessUnitId, WithProtected, WithViewId,
+    View, WithBusinessUnitId, WithProtected, WithProtectedFields, WithViewId,
     Workspace
 } from "./entities";
 import {EventMapping} from "./entities/Event/EventMapping";
@@ -22,6 +22,7 @@ import {WithId, WithMetaData} from "./entities/common";
 export type ServerOnlyFields = keyof (
     WithId
     & WithProtected
+    & WithProtectedFields
     & WithMetaData
     & WithBusinessUnitId &
     WithViewId);
