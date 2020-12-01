@@ -1,17 +1,23 @@
 import {WithSecuritySchemes} from "./Auth";
-import {
-  Id,
-  Payload,
-  VersionedEntity,
-  WithDetails,
-} from "../common";
+import {Id, Payload, VersionedEntity, WithDetails,} from "../common";
 import {CloudStorageResource, RESTResource} from "../Application/ApplicationResource";
 import {WorkspaceId} from "../Workspace";
-import {WithConfigSchema, WithConfigValues, WithResourcePath} from "../common/config";
+import {
+  WithConfigSchema,
+  WithConfigValues,
+  WithPollingConfig,
+  WithResourcePath,
+  WithTestResourcePath
+} from "../common/config";
 
 export type ConnectorId = Id;
 
-interface ConnectorBase extends VersionedEntity<ConnectorId>, WithConfigSchema, WithSecuritySchemes  {
+interface ConnectorBase extends VersionedEntity<ConnectorId>,
+    WithConfigSchema,
+    WithConfigValues,
+    WithPollingConfig,
+    WithSecuritySchemes,
+    WithTestResourcePath  {
   logoUrl: string;
   predefinedActions: ResourceBased[];
   predefinedEvents: ResourceBased[];

@@ -3,19 +3,22 @@ import {ConnectorId} from "../Connector";
 import {CloudStorageResource, RESTResource} from "./ApplicationResource";
 import {SecuritySchemeName, WithSecuritySchemes} from "../Connector/Auth";
 import {WithBusinessUnitId} from "../BusinessUnit";
-import {WithConfigSchema, WithConfigValues} from "../common/config";
+import {WithConfigSchema, WithConfigValues, WithPollingConfig, WithTestResourcePath} from "../common/config";
 
 export type ApplicationId = Id;
 
-interface DirectApplication extends Entity<ApplicationId>, WithBusinessUnitId, WithSecuritySchemes, WithConfigSchema, WithConfigValues {
+interface DirectApplication extends Entity<ApplicationId>,
+    WithBusinessUnitId,
+    WithConfigSchema,
+    WithConfigValues,
+    WithPollingConfig,
+    WithSecuritySchemes,
+    WithTestResourcePath {
     logoUrl: string;
     connectorId?: ConnectorId;
 
     // TODO: can delete?
     iconUrl?: string; // deprecated for logoUrl
-    isDataProducer?: boolean;
-    executionPlanSteps?: string[];
-    priority?: any;
 }
 
 type RESTApplication = DirectApplication & RESTResource;

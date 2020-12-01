@@ -47,7 +47,9 @@ export type CDPEntitiesApi = {
         activityIndicators: EntityApi<CDPEntityDef<ActivityIndicator>>;
         segments: EntityApi<CDPEntityDef<Segment>>;
         applications: EntityApi<CDPEntityDef<Application>, {
-            auth: EntityApi<CDPEntityDef<ApplicationAuth>>,
+            auth: EntityApi<CDPEntityDef<ApplicationAuth>, {
+                test: EntityApi<CDPEntityDef<ApplicationAuth>>
+            }>,
 
             dataevents: EntityApi<CDPEntityDef<Event>, {
                 // mappings: EntityApi<CDPEntityDef<EventMapping[]>>; // TBD
