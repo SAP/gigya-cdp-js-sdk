@@ -1,6 +1,6 @@
 import {Entity, Id, WithEnabled} from "./common";
 import {JSONSchema7} from "json-schema";
-import {FieldName} from "./common/Field";
+import {WithProtectedFields} from "./common/Field";
 
 export type SchemaId = Id;
 
@@ -8,11 +8,9 @@ export interface WithSchema  {
     schema: string|JSONSchema7;
 }
 
-export type ProtectedFieldName<F extends FieldName = FieldName> = `properties.${F}`;
 
-export interface CustomerSchema extends Entity<SchemaId>, WithSchema {
+export interface CustomerSchema extends Entity<SchemaId>, WithSchema, WithProtectedFields {
     schemaType: SchemaType;
-    protectedFields: Record<ProtectedFieldName, {}>;
 }
 
 export enum SchemaType {
