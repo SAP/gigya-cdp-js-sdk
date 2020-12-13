@@ -1,5 +1,5 @@
 import {WithSecuritySchemes} from "./Auth";
-import {Id, Payload, VersionedEntity, WithDetails,} from "../common";
+import {Id, Payload, VersionedEntity, WithDetails, WithId,} from "../common";
 import {CloudStorageResource, RESTResource} from "../Application/ApplicationResource";
 import {WorkspaceId} from "../Workspace";
 import {
@@ -27,7 +27,7 @@ export type RESTConnector = ConnectorBase & RESTResource;
 export type CloudStorageConnector = ConnectorBase & CloudStorageResource;
 export type Connector = RESTConnector | CloudStorageConnector;
 
-interface ResourceBased extends WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {}
+interface ResourceBased extends WithId, WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {}
 
 interface AppLibraryEndpoints {
   // Global Connectors

@@ -3,15 +3,23 @@ import {EntityApi} from "./ts-rest-client/interfaces/EntityApi"; // ts bug, impo
 import {
     Action,
     ActivityIndicator,
-    Application, ApplicationAuth, Audience,
-    BusinessUnit, Connector,
-    Event, Journey,
-    MergeRule, Purpose,
+    Application,
+    ApplicationAuth,
+    Audience,
+    BusinessUnit,
+    Connector,
+    Event,
+    Journey,
+    MergeRule,
+    Purpose,
     Segment,
-    View, WithBusinessUnitId, WithProtected, WithProtectedFields, WithViewId,
+    View,
+    WithBusinessUnitId,
+    WithProtected,
+    WithProtectedFields,
+    WithViewId,
     Workspace
 } from "./entities";
-import {EventMapping} from "./entities/Event/EventMapping";
 import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";

@@ -12,3 +12,10 @@ export interface Req<P extends object = {}> {
     params: P;
     headers: Headers;
 }
+
+export interface RawRequest {
+    method: HttpMethod;
+    uri: string;
+    headers: Headers;
+    body?: string;
+}
