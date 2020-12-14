@@ -1,4 +1,4 @@
-import {Entity, Id, Payload, WithEnabled} from '../common';
+import {Entity, Id, Payload, WithEnabled, WithType} from '../common';
 import {ConnectorId} from "../Connector";
 import {CloudStorageResource, RESTResource} from "./ApplicationResource";
 import {SecuritySchemeName, WithSecuritySchemes} from "../Connector/Auth";
@@ -7,7 +7,7 @@ import {WithConfigSchema, WithConfigValues, WithPollingConfig, WithTestResourceP
 
 export type ApplicationId = Id;
 
-interface DirectApplication extends Entity<ApplicationId>,
+interface ApplicationBase extends Entity<ApplicationId>,
     WithBusinessUnitId,
     WithConfigSchema,
     WithConfigValues,
@@ -21,8 +21,9 @@ interface DirectApplication extends Entity<ApplicationId>,
     iconUrl?: string; // deprecated for logoUrl
 }
 
-type RESTApplication = DirectApplication & RESTResource;
-type CloudStorageApplication = DirectApplication & CloudStorageResource;
+type DirectApplication = ApplicationBase & WithType<'Basic'>;
+type RESTApplication = ApplicationBase & RESTResource;
+type CloudStorageApplication = ApplicationBase & CloudStorageResource;
 
 export type Application = DirectApplication | RESTApplication | CloudStorageApplication;
 

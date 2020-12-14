@@ -42,11 +42,11 @@ export type CDPEntitiesApi = {
     workspaces: EntityApi<CDPEntityDef<Workspace>, {
         applibrary: EntityApi<CDPEntityDef<Connector>>,
         global: EntityApi<never, {
-            applibrary: EntityApi<CDPEntityDef<Connector>>,
+            applibrary: EntityApi<CDPEntityDef<Connector[]>>,
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-        mappings: EntityApi<CDPEntityDef<Record<string, Array<{ sourceField: string; targetField: string }>>>>; // deprecate this
+        mappings: EntityApi<CDPEntityDef<{ sourceId: string; targetId: string; mappings: Array<{ sourceField: string; targetField: string }> }>>; // deprecate this
 
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
