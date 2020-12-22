@@ -14,7 +14,7 @@ interface ApplicationBase extends Entity<ApplicationId>,
     WithPollingConfig,
     WithSecuritySchemes,
     WithTestResourcePath {
-    // logoUrl: string; // TODO: logoURL is now BASEUrl and is in configValues...
+    logoUrl?: string;
     connectorId?: ConnectorId;
 
     // TODO: can delete?
@@ -39,7 +39,8 @@ export interface ApplicationAuth {
 export interface ApplicationsEndpoints {
     '/businessUnit/$bUnit/applications': {
         GET: (bUnit: Id) => Promise<Application[]>;
-        POST: (bUnit: Id, payload: Omit<Payload<Application>, keyof (WithSecuritySchemes & WithConfigSchema & WithEnabled & WithBusinessUnitId)> & Partial<{
+        //TODO: fix this payload...
+        POST: (bUnit: Id, payload: Omit<Payload<Application>, keyof (WithSecuritySchemes & WithConfigSchema & WithEnabled & WithBusinessUnitId)> & Partial<{ //TODO: apparently you dont send enabled anymore..
             predefinedEventIds: string[];
             predefinedActionIds: string[];
         }>) => Promise<Application>;
