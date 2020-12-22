@@ -9,7 +9,7 @@ export type WithPollingConfig = {
     pollingConfig?: Record<ResourcePath, {
         pageFieldName: string;
         recordsLocator?: string;
-        dateFormat?: string;
+        dateFormat?: string; // default: ISO
 
         dateFieldName?: string; // redundant once we support idx vars
         pageSizeFieldName?: string; // redundant?
@@ -114,7 +114,7 @@ const connector =
                                 "name": "query",
                                 "schema": {
                                     "type": "string",
-                                    "default": "select * where updated > $lastRunTime"
+                                    "default": "select * where updated > '${lastRunTime:UNIX}'"
                                 },
                                 "required": true,
                                 "description": "the query to use to filter the account store"

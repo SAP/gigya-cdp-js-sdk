@@ -184,7 +184,7 @@ export class CDP {
         if (qs)
             uri += `?${qs}`;
 
-        return this.options.sendRequest<T>({...req, body, uri});
+        return this.options.sendRequest<T>({...req, body, uri}, this.options);
     }
 
     private log(msg: string, ...args: any[]) {
