@@ -3,9 +3,8 @@ import {HttpMethod, HttpProtocol, Req} from "./request";
 import {CredentialsType, getSigner, ISigner} from "./Signers";
 import {CDPEntitiesApi} from "./CDPEntitiesApi";
 import {AnonymousRequestSigner} from "./Signers/AnonymousRequestSigner";
-import {Headers} from "request";
+import request, {CoreOptions, Headers, Response} from "request";
 import {wrap} from "./ts-rest-client";
-import {sendRequest} from "./sendRequest";
 
 export type DataCenter = 'eu5' | `il1`;
 type StagingEnvs = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -37,8 +36,7 @@ export class CDP {
         proxy: undefined as string,
         ignoreCertError: false,
         verboseLog: false,
-        anonymousPaths: [] as RegExp[],
-        sendRequest: sendRequest
+        anonymousPaths: [] as RegExp[]
     };
 
     private _signer: ISigner;
@@ -168,8 +166,9 @@ export class CDP {
     }
 
     private httpSend<T>(req: Req) {
+        const start = Date.now();
         let uri = `${req.protocol}://${req.domain}/${req.path}`;
-        let body: string = undefined;
+        let body = undefined;
 
         switch (req.method) {
             case "get":
@@ -184,7 +183,41 @@ export class CDP {
         if (qs)
             uri += `?${qs}`;
 
-        return this.options.sendRequest<T>({...req, body, uri});
+        const reqOptions: CoreOptions = {
+            headers: {...req.headers, ['Content-type']: 'application/json'},
+            body,
+            // ca: ''
+        };
+
+        if (this.options.ignoreCertError) {
+            process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0 as any; // todo: restore it?
+        }
+
+        if (this.options.proxy) {
+            this.log(`sending via proxy:`, this.options.proxy);
+            reqOptions.proxy = this.options.proxy;
+            reqOptions.tunnel = false;
+        }
+
+        return new Promise<T>((resolve, reject) => request[req.method](
+            uri, reqOptions, (error: any, response: Response, body: any) => {
+                this.log(`request to ${req.method.toUpperCase()} ${uri} took ${(Date.now() - start) / 1000} seconds`);
+                if (error) {
+                    this.log(`error:`, error, response, body);
+                    reject({
+                        errorCode: error.errno ?? 'unknown',
+                        errorDetails: error.syscall == 'getaddrinfo' ? 'missing vpn connection?' : error,
+                    });
+                    return;
+                }
+                try {
+                    this.log(body);
+                    resolve(JSON.parse(body));
+                } catch (ex) {
+                    this.log(`failed to parse response body from request to ${uri}\n${body}`);
+                    reject({error: ex, body});
+                }
+            }));
     }
 
     private log(msg: string, ...args: any[]) {

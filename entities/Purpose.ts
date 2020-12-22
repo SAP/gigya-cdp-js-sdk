@@ -14,3 +14,4 @@ export interface Purpose extends Omit<Entity<PurposeId>, keyof WithEnabled> {
   customerActivityIndicators?: ActivityIndicatorName[];
   customerActivities?: Record<ActivitySchemaName, ActivityFieldName[]>;
 }
+

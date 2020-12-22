@@ -3,28 +3,20 @@ import {EntityApi} from "./ts-rest-client/interfaces/EntityApi"; // ts bug, impo
 import {
     Action,
     ActivityIndicator,
-    Application,
-    ApplicationAuth,
-    Audience,
-    BusinessUnit,
-    Connector,
-    Event,
-    Journey,
-    MergeRule,
-    Purpose,
+    Application, ApplicationAuth, Audience,
+    BusinessUnit, Connector,
+    Event, Journey,
+    MergeRule, Purpose,
     Segment,
-    View,
-    WithBusinessUnitId,
-    WithProtected,
-    WithProtectedFields,
-    WithViewId,
+    View, WithBusinessUnitId, WithProtected, WithProtectedFields, WithViewId,
     Workspace
 } from "./entities";
+import {EventMapping} from "./entities/Event/EventMapping";
 import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
 import {CustomerSchema} from "./entities/Schema";
-import {WithId, WithMetaData} from "./entities/common";
+import {Payload, WithId, WithMetaData} from "./entities/common";
 
 
 export type ServerOnlyFields = keyof (
@@ -46,7 +38,7 @@ export type CDPEntitiesApi = {
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-        mappings: EntityApi<CDPEntityDef<{ sourceId: string; targetId: string; mappings: Array<{ sourceField: string; targetField: string }> }>>; // deprecate this
+        // mappings: EntityApi<CDPEntityDef<{ sourceId: string; targetId: string; mappings: Array<{ sourceField: string; targetField: string }> }>>; // deprecate this
 
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
@@ -66,6 +58,7 @@ export type CDPEntitiesApi = {
                 // events: EntityApi<EntityApi<Array<object>>>;
                 activate: EntityApi;
                 status: EntityApi;
+                mappings: EntityApi<CDPEntityDef<{ mappings: { sourceField: string, targetField: string, target: string, srcField: string }[] }>>;
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {
