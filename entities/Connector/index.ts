@@ -9,16 +9,19 @@ import {
     WithResourcePath,
     WithTestResourcePath
 } from "../common/config";
+import {WithCategory} from "../Action";
 
 export type ConnectorId = Id;
 
 interface ConnectorBase extends VersionedEntity<ConnectorId>,
+    WithCategory,
     WithConfigSchema,
     WithConfigValues,
     WithPollingConfig,
     WithSecuritySchemes,
     WithTestResourcePath {
     tenantId: string;
+    externalDocs?: string;
     logoUrl: string;
     predefinedActions: ResourceBased[];
     predefinedEvents: ResourceBased[];
@@ -28,7 +31,7 @@ export type RESTConnector = ConnectorBase & RESTResource;
 export type CloudStorageConnector = ConnectorBase & CloudStorageResource;
 export type Connector = RESTConnector | CloudStorageConnector;
 
-interface ResourceBased extends WithId, WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {
+interface ResourceBased extends WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {
 }
 
 interface AppLibraryEndpoints {

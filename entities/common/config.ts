@@ -7,10 +7,10 @@ export type ResourcePath = string;
 export type WithConfigSchema = { configSchema?: JSONSchema7 & { type: 'object'; properties: { [propName: string]: JSONSchema7 & { scope: ConfigOverrideScope[] } } }; };
 export type WithConfigValues = { configValues?: Record<string, any>; };
 export type WithPollingConfig = {
-    pollingConfig?: Record<ResourcePath, {
+    pollingConfigurations?: Record<ResourcePath, {
         pageFieldName: string;
         recordsLocator?: string;
-        dateFormat?: string;
+        dateFormat?: string; // default: ISO
 
         dateFieldName?: string; // redundant once we support idx vars
         pageSizeFieldName?: string; // redundant?
