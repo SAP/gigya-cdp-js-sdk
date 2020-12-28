@@ -14,14 +14,14 @@ interface ApplicationBase extends Entity<ApplicationId>,
     WithPollingConfig,
     WithSecuritySchemes,
     WithTestResourcePath {
-    logoUrl?: string;
+    logoUrl: string;
     connectorId?: ConnectorId;
 
     // TODO: can delete?
     iconUrl?: string; // deprecated for logoUrl
 }
 
-type DirectApplication = ApplicationBase & WithType<'Basic'>;
+type DirectApplication = ApplicationBase & WithType<'Direct'>;
 type RESTApplication = ApplicationBase & RESTResource;
 type CloudStorageApplication = ApplicationBase & CloudStorageResource;
 
@@ -39,8 +39,7 @@ export interface ApplicationAuth {
 export interface ApplicationsEndpoints {
     '/businessUnit/$bUnit/applications': {
         GET: (bUnit: Id) => Promise<Application[]>;
-        //TODO: fix this payload...
-        POST: (bUnit: Id, payload: Omit<Payload<Application>, keyof (WithSecuritySchemes & WithConfigSchema & WithEnabled & WithBusinessUnitId)> & Partial<{ //TODO: apparently you dont send enabled anymore..
+        POST: (bUnit: Id, payload: Omit<Payload<Application>, keyof (WithSecuritySchemes & WithConfigSchema & WithEnabled & WithBusinessUnitId)> & Partial<{
             predefinedEventIds: string[];
             predefinedActionIds: string[];
         }>) => Promise<Application>;
