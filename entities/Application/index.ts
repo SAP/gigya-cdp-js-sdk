@@ -21,7 +21,7 @@ interface ApplicationBase extends Entity<ApplicationId>,
     iconUrl?: string; // deprecated for logoUrl
 }
 
-type DirectApplication = ApplicationBase & WithType<'Basic'>;
+type DirectApplication = ApplicationBase & WithType<'Direct'>;
 type RESTApplication = ApplicationBase & RESTResource;
 type CloudStorageApplication = ApplicationBase & CloudStorageResource;
 
