@@ -60,6 +60,7 @@ export type CDPEntitiesApi = {
                 activate: EntityApi;
                 status: EntityApi;
                 mappings: EntityApi<CDPEntityDef<EventMapping[] | EventMappingsResponse>>; //TODO: this is a little hack for now because of inconsistency with the back
+                // ingest: EntityApi<any> ---> aren't we meant to have an ingest endpoint???'
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {

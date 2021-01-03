@@ -14,7 +14,7 @@ interface ApplicationBase extends Entity<ApplicationId>,
     WithPollingConfig,
     WithSecuritySchemes,
     WithTestResourcePath {
-    logoUrl: string;
+    logoUrl?: string;
     connectorId?: ConnectorId;
 
     // TODO: can delete?
