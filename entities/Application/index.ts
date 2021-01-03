@@ -15,15 +15,18 @@ interface ApplicationBase extends Entity<ApplicationId>,
     WithSecuritySchemes,
     WithTestResourcePath {
     logoUrl?: string;
-    connectorId?: ConnectorId;
 
     // TODO: can delete?
     iconUrl?: string; // deprecated for logoUrl
 }
 
-type DirectApplication = ApplicationBase & WithType<'Direct'>;
-type RESTApplication = ApplicationBase & RESTResource;
-type CloudStorageApplication = ApplicationBase & CloudStorageResource;
+interface WithConnectorId {
+    connectorId?: ConnectorId;
+}
+
+export type DirectApplication = ApplicationBase & WithType<'Direct'>;
+export type RESTApplication = ApplicationBase & WithConnectorId & RESTResource;
+export type CloudStorageApplication = ApplicationBase & WithConnectorId & CloudStorageResource;
 
 export type Application = DirectApplication | RESTApplication | CloudStorageApplication;
 

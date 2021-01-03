@@ -11,83 +11,83 @@ export type AudienceCondition = Condition<
     | PurposeCondition>;
 
 
-// const conditionExample: AudienceCondition = {
-//     operator: "and",
-//     conditions: [
-//         {
-//             type: 'profile',
-//             fieldCondition: {
-//                 operator: 'and',
-//                 conditions: [
-//                     {
-//                         field: 'age',
-//                         condition: {
-//                             operator: 'and',
-//                             conditions: [
-//                                 {
-//                                     operator: 'greaterThan',
-//                                     operand: {
-//                                         type: 'double',
-//                                         value: 18
-//                                     }
-//                                 },
-//                                 {
-//                                     operator: 'lessThan',
-//                                     operand: {
-//                                         type: 'double',
-//                                         value: 42
-//                                     }
-//                                 },
-//                                 {
-//                                     operator: 'or',
-//                                     conditions: [
-//                                         // a,
-//                                         // b
-//                                     ]
-//                                 }
-//                             ]
-//                         }
-//                     },
-//                     {
-//                         field: 'city',
-//                         condition: {
-//                             operator: 'or',
-//                             conditions: [
-//                                 {
-//                                     operator: 'equal',
-//                                     operand: {
-//                                         type: 'string',
-//                                         value: 'TLV'
-//                                     }
-//                                 },
-//                                 {
-//                                     operator: 'equal',
-//                                     operand: {
-//                                         type: 'string',
-//                                         value: 'Washington'
-//                                     }
-//                                 },
-//                             ]
-//                         }
-//                     }
-//                 ]
-//             }
-//         },
-//         {
-//             type: 'segment',
-//             name: 'VIP',
-//             values: ['Gold Customer', 'Silver Customer']
-//         },
-//         {
-//             type: 'activityIndicator',
-//             field: 'purchaseSum',
-//             condition: {
-//                 operator: 'greaterThanOrEqual',
-//                 operand: {
-//                     type: 'double',
-//                     value: 1000
-//                 }
-//             }
-//         }
-//     ]
-// };
+const conditionExample: AudienceCondition = {
+    operator: "and",
+    conditions: [
+        {
+            type: 'profile',
+            fieldCondition: {
+                operator: 'and',
+                conditions: [
+                    {
+                        field: 'age',
+                        condition: {
+                            operator: 'and',
+                            conditions: [
+                                {
+                                    operator: 'greaterThan',
+                                    operand: {
+                                        type: 'double',
+                                        value: 18
+                                    }
+                                },
+                                {
+                                    operator: 'lessThan',
+                                    operand: {
+                                        type: 'double',
+                                        value: 42
+                                    }
+                                },
+                                {
+                                    operator: 'or',
+                                    conditions: [
+                                        // a,
+                                        // b
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        field: 'city',
+                        condition: {
+                            operator: 'or',
+                            conditions: [
+                                {
+                                    operator: 'equal',
+                                    operand: {
+                                        type: 'string',
+                                        value: 'TLV'
+                                    }
+                                },
+                                {
+                                    operator: 'equal',
+                                    operand: {
+                                        type: 'string',
+                                        value: 'Washington'
+                                    }
+                                },
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            type: 'segment',
+            name: 'VIP',
+            values: ['Gold Customer', 'Silver Customer']
+        },
+        {
+            type: 'activityIndicator',
+            field: 'purchaseSum',
+            condition: {
+                operator: 'greaterThanOrEqual',
+                operand: {
+                    type: 'double',
+                    value: 1000
+                }
+            }
+        }
+    ]
+};

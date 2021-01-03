@@ -16,9 +16,9 @@ import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
 import {CustomerSchema} from "./entities";
-import {Payload, WithId, WithMetaData} from "./entities/common";
+import {Payload, WithId, WithMetaData, WithType} from "./entities/common";
 
-export type EventMappingsResponse = {mappings: EventMapping[]} //TODO: this is a little hack for now because of inconsistency with the back
+// export type EventMappingsResponse = {mappings: EventMapping[]} //TODO: this is a little hack for now because of inconsistency with the back
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -39,7 +39,6 @@ export type CDPEntitiesApi = {
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-        // mappings: EntityApi<CDPEntityDef<{ sourceId: string; targetId: string; mappings: Array<{ sourceField: string; targetField: string }> }>>; // deprecate this
 
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
@@ -47,20 +46,18 @@ export type CDPEntitiesApi = {
 
         activityIndicators: EntityApi<CDPEntityDef<ActivityIndicator>>;
         segments: EntityApi<CDPEntityDef<Segment>>;
-        applications: EntityApi<CDPEntityDef<Application>, {
+        applications: EntityApi<CDPEntityDef<Application, keyof WithType<any>>, {
             auth: EntityApi<CDPEntityDef<ApplicationAuth>, {
                 test: EntityApi<CDPEntityDef<ApplicationAuth>>
             }>,
 
             dataevents: EntityApi<CDPEntityDef<Event>, {
-                // mappings: EntityApi<CDPEntityDef<EventMapping[]>>; // TBD
                 schedules: EntityApi<CDPEntityDef<EventSchedule>>;
                 event: EntityApi;
-                // events: EntityApi<EntityApi<Array<object>>>;
                 activate: EntityApi;
                 status: EntityApi;
-                mappings: EntityApi<CDPEntityDef<EventMapping[] | EventMappingsResponse>>; //TODO: this is a little hack for now because of inconsistency with the back
-                // ingest: EntityApi<any> ---> aren't we meant to have an ingest endpoint???'
+                mappings: EntityApi<CDPEntityDef<EventMapping[]>>; //TODO: this is a little hack for now because of inconsistency with the back
+
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {

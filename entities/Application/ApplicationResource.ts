@@ -1,5 +1,6 @@
 import {WithType} from "../common";
 import {OpenApi} from "openapi-v3";
+import {ConnectorId} from "../Connector";
 
 export type ApplicationType = 'REST' | 'CloudStorage';
 
