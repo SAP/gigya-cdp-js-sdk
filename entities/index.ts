@@ -17,6 +17,7 @@ export * from './Audience';
 export * from './Audience/AudienceCondition';
 export * from './Journey';
 export * from './Journey/JourneyCondition';
+export * from './Application';
 
 
 

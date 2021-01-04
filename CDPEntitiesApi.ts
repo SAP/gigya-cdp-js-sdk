@@ -16,7 +16,7 @@ import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
 import {CustomerSchema} from "./entities";
-import {Payload, WithId, WithMetaData} from "./entities/common";
+import {Payload, WithId, WithMetaData, WithType} from "./entities/common";
 
 export type EventMappingsResponse = {mappings: EventMapping[]} //TODO: this is a little hack for now because of inconsistency with the back
 
@@ -47,7 +47,7 @@ export type CDPEntitiesApi = {
 
         activityIndicators: EntityApi<CDPEntityDef<ActivityIndicator>>;
         segments: EntityApi<CDPEntityDef<Segment>>;
-        applications: EntityApi<CDPEntityDef<Application>, {
+        applications: EntityApi<CDPEntityDef<Application, keyof WithType<any>>, {
             auth: EntityApi<CDPEntityDef<ApplicationAuth>, {
                 test: EntityApi<CDPEntityDef<ApplicationAuth>>
             }>,
