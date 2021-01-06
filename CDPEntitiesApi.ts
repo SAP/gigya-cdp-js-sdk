@@ -35,7 +35,7 @@ export type CDPEntitiesApi = {
     workspaces: EntityApi<CDPEntityDef<Workspace>, {
         applibrary: EntityApi<CDPEntityDef<Connector>>,
         global: EntityApi<never, {
-            applibrary: EntityApi<CDPEntityDef<Connector[]>>,
+            applibrary: EntityApi<CDPEntityDef<Connector>>,
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
