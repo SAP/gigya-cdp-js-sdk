@@ -9,4 +9,3 @@ export type AudienceCondition = Condition<
     | SegmentStateCondition                 // only "in"
     | ActivityIndicatorStateCondition       // no change
     | PurposeCondition>;
-
