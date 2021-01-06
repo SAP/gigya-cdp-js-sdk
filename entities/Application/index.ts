@@ -36,7 +36,6 @@ export interface ApplicationAuth {
 export interface ApplicationsEndpoints {
     '/businessUnit/$bUnit/applications': {
         GET: (bUnit: Id) => Promise<Application[]>;
-        //TODO: fix this payload...
         POST: (bUnit: Id, payload: Omit<Payload<Application>, keyof (WithSecuritySchemes & WithConfigSchema & WithEnabled & WithBusinessUnitId)> & Partial<{
             predefinedEventIds: string[];
             predefinedActionIds: string[];

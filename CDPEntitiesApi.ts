@@ -18,7 +18,7 @@ import {ActionMapping} from "./entities/Action/ActionMapping";
 import {CustomerSchema} from "./entities";
 import {Payload, WithId, WithMetaData, WithType} from "./entities/common";
 
-// export type EventMappingsResponse = {mappings: EventMapping[]} //TODO: this is a little hack for now because of inconsistency with the back
+export type EventMappingsResponse = {mappings: EventMapping[]};
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -39,7 +39,6 @@ export type CDPEntitiesApi = {
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
         purposes: EntityApi<CDPEntityDef<Purpose>>;
@@ -56,8 +55,7 @@ export type CDPEntitiesApi = {
                 event: EntityApi;
                 activate: EntityApi;
                 status: EntityApi;
-                mappings: EntityApi<CDPEntityDef<EventMapping[]>>; //TODO: this is a little hack for now because of inconsistency with the back
-
+                mappings: EntityApi<CDPEntityDef<EventMapping[] | EventMappingsResponse>>; //TODO: this is a little hack for now because of inconsistency with the back
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {
@@ -66,6 +64,7 @@ export type CDPEntitiesApi = {
             }>;
 
         }>;
+
         views: EntityApi<CDPEntityDef<View>, {
             matchRules: EntityApi<CDPEntityDef<MatchingRule>>;
             matchRulesPriority: EntityApi<CDPEntityDef<MatchingRulePriority>>;
