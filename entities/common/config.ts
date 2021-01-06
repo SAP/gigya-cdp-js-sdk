@@ -7,7 +7,7 @@ export type ResourcePath = string;
 export type WithConfigSchema = { configSchema?: JSONSchema7 & { type: 'object'; properties: { [propName: string]: JSONSchema7 & { scope: ConfigOverrideScope[] } } }; };
 export type WithConfigValues = { configValues?: Record<string, any>; };
 export type WithPollingConfig = {
-    pollingConfigurations?: Record<ResourcePath, {
+    pollingConfigs?: Record<ResourcePath, {
         pageFieldName: string;
         recordsLocator?: string;
         dateFormat?: string; // default: ISO
@@ -24,22 +24,21 @@ export type WithTestResourcePath = {
 };
 
 // Drafts:
-interface PagingStrategyBase {}
-interface PageNumStrategy extends PagingStrategyBase, WithType<'number'> {
+interface PagingConfigBase {}
+interface PageNumConfig extends PagingConfigBase, WithType<'number'> {
     pageFieldName: string;
 }
 
-interface OffsetStrategy extends PagingStrategyBase, WithType<'offset'> {
+interface OffsetConfig extends PagingConfigBase, WithType<'offset'> {
     pageFieldName: string;
     pageSizeFieldName: string;
 }
 
-type PagingStrategy = PageNumStrategy | OffsetStrategy;
+type PagingConfig = PageNumConfig | OffsetConfig;
 
 interface WithPollingConfig2 {
-    pollingConfiguration: {
+    pollingConfigs: {
         recordsLocator?: string;
-        dateFormat?: 'ISO'|'UNIX'|string;
-        pagingStrategy: PagingStrategy;
+        pagingConfig: PagingConfig;
     }
 }
