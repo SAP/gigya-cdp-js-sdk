@@ -16,9 +16,9 @@ import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
 import {CustomerSchema} from "./entities";
-import {Payload, WithId, WithMetaData, WithType} from "./entities/common";
+import {WithId, WithMetaData, WithType} from "./entities/common";
 
-export type EventMappingsResponse = {mappings: EventMapping[]} //TODO: this is a little hack for now because of inconsistency with the back
+export type EventMappingsResponse = {mappings: EventMapping[]};
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -39,8 +39,6 @@ export type CDPEntitiesApi = {
         }>;
     }>,
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-        // mappings: EntityApi<CDPEntityDef<{ sourceId: string; targetId: string; mappings: Array<{ sourceField: string; targetField: string }> }>>; // deprecate this
-
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
         purposes: EntityApi<CDPEntityDef<Purpose>>;
@@ -53,10 +51,8 @@ export type CDPEntitiesApi = {
             }>,
 
             dataevents: EntityApi<CDPEntityDef<Event>, {
-                // mappings: EntityApi<CDPEntityDef<EventMapping[]>>; // TBD
                 schedules: EntityApi<CDPEntityDef<EventSchedule>>;
                 event: EntityApi;
-                // events: EntityApi<EntityApi<Array<object>>>;
                 activate: EntityApi;
                 status: EntityApi;
                 mappings: EntityApi<CDPEntityDef<EventMapping[] | EventMappingsResponse>>; //TODO: this is a little hack for now because of inconsistency with the back
@@ -66,8 +62,8 @@ export type CDPEntitiesApi = {
                 mappings: EntityApi<CDPEntityDef<ActionMapping[]>>;
                 activate: EntityApi;
             }>;
-
         }>;
+
         views: EntityApi<CDPEntityDef<View>, {
             matchRules: EntityApi<CDPEntityDef<MatchingRule>>;
             matchRulesPriority: EntityApi<CDPEntityDef<MatchingRulePriority>>;
