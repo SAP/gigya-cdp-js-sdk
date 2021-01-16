@@ -1,7 +1,7 @@
 import {Condition, FieldCondition} from "./Condition";
 
 export interface MappingBase {
-    srcField: string;
+    sourceField: string;
     targetField: string;
     arraySelector?: Condition<FieldCondition>;
 }

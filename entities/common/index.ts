@@ -1,4 +1,5 @@
 import {JSONSchema7} from "json-schema";
+import {WithViewId} from "../View";
 
 export type Id = string;
 export type WithType<T> = { type: T; };
@@ -28,4 +29,4 @@ export interface Entity<T = Id> extends WithId<T>, WithMetaData, WithDetails, Wi
 export interface VersionedEntity<T = Id> extends Entity<T>, WithVersion {
 }
 
-export type Payload<T extends Entity> = Omit<T, keyof (WithId & WithMetaData)>;
+export type Payload<T extends Partial<Entity>> = Omit<T, keyof (WithId & WithMetaData & WithViewId)>;
