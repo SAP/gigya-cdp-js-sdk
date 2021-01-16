@@ -26,11 +26,11 @@ export class AuthBearerSigner extends AuthRequestSigner<RSACredentials> {
     }
 
     private signJwt(creds: RSACredentials) {
-        const {JWT, JWK} = require('jose');
+        const jose = require('jose');
 
-        return JWT.sign(
+        return jose.JWT.sign(
             {},
-            JWK.asKey({
+            jose.JWK.asKey({
                 key: creds.privateKey,
                 format: 'pem',
                 // type: 'pkcs1'
