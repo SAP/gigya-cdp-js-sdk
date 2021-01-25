@@ -18,8 +18,6 @@ import {ActionMapping} from "./entities/Action/ActionMapping";
 import {CustomerSchema} from "./entities";
 import {Payload, WithId, WithMetaData, WithType} from "./entities/common";
 
-export type EventMappingsResponse = {mappings: EventMapping[]};
-
 export type ServerOnlyFields = keyof (
     WithId
     & WithProtected
@@ -55,7 +53,7 @@ export type CDPEntitiesApi = {
                 event: EntityApi;
                 activate: EntityApi;
                 status: EntityApi;
-                mappings: EntityApi<CDPEntityDef<EventMapping[] | EventMappingsResponse>>; //TODO: this is a little hack for now because of inconsistency with the back
+                mappings: EntityApi<CDPEntityDef<EventMapping[]>>;
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {
