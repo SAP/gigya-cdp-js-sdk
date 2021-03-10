@@ -36,6 +36,7 @@ export type CDPEntitiesApi = {
             applibrary: EntityApi<CDPEntityDef<Connector>>,
         }>;
     }>,
+
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
         ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 

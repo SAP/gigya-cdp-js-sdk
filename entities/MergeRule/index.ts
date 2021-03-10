@@ -1,12 +1,12 @@
 import {ProfileFieldName} from "../common/Field";
 
 export interface MergeRule {
-    mergeRulesNamesToConfigs: Record<ProfileFieldName, {
+    properties: Record<ProfileFieldName, {
         name: ProfileFieldName;
         writePolicy: 'immutable' | 'mutable';
         maxValues: number;
         writeConflictRule: 'discardEvent' | 'createUcp';
-        // dataQualityRanks: null;
-        // isIdentifier: boolean;
+        isIdentifier: boolean;
+        isProtected: boolean
     }>;
 }
