@@ -9,6 +9,7 @@ import {Id} from "../index";
 import {Condition, SimpleCondition} from "./Condition";
 import {FieldCondition, FieldStateCondition} from "./FieldCondition";
 import {ActivityFieldName, ProfileFieldName} from "../Field";
+import {PurposeStatus} from "../../Purpose";
 
 // TODO: clearout "state" condition entities
 
@@ -57,5 +58,5 @@ export interface ActivityIndicatorCondition extends FieldCondition<ActivityField
 export type PurposeCondition = SimpleCondition & Partial<WithTimeRange> & {
     type: 'purpose';
     operator?: 'equal' | 'changed';
-    value: 'granted' | 'withdrawn';
+    value: PurposeStatus;
 } & ({ purposeId: string; } | { externalId: string });

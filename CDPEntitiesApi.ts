@@ -28,7 +28,8 @@ import {EventMapping} from "./entities/Event/EventMapping";
 import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
-import {WithId, WithMetaData, WithType} from "./entities/common";
+import {Id, WithId, WithMetaData, WithType} from "./entities/common";
+import {Customer} from "./entities/Customer";
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -87,6 +88,13 @@ export type CDPEntitiesApi = {
                 scheduled: EntityApi,
                 status: EntityApi,
             }>;
+
+            customers: EntityApi<CDPEntityDef<{
+                profiles: Customer[];
+                count: number;
+                totalCount: number;
+                nextCursorId: Id;
+            }>>; // TODO: allow only GET
         }>;
     }>;
 };

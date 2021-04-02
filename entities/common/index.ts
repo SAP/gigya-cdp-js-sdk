@@ -1,4 +1,3 @@
-import {JSONSchema7} from "json-schema";
 import {WithViewId} from "../View";
 
 export type Id = string;
@@ -10,8 +9,8 @@ export type WithEnabled = {
 };
 
 export type WithMetaData = {
-  created: Date | string;
-  updated: Date | string;
+  created: Date | ISODateTimeString;
+  updated: Date | ISODateTimeString;
 };
 
 export type WithDetails = {

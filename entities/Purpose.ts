@@ -15,3 +15,4 @@ export interface Purpose extends StaticEntity<PurposeId> {
   customerActivities?: Record<ActivitySchemaName, ActivityFieldName[]>;
 }
 
+export type PurposeStatus = 'Granted' | 'Withdrawn';
