@@ -4,7 +4,7 @@ import {Id, WithType} from "./common";
 export type ViewId = Id;
 export type ViewType = 'Marketing' | 'Contextual';
 export interface View extends WithBusinessUnitId, WithType<ViewType> {
-  id: ViewId
+  id: ViewId;
   name: string;
 }
 

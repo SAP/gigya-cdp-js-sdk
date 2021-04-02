@@ -1,6 +1,6 @@
 import {WithSecuritySchemes} from "./Auth";
-import {Id, Payload, VersionedEntity, WithDetails, WithId,} from "../common";
-import {CloudStorageResource, RESTResource} from "../Application/ApplicationResource";
+import {Id, Payload, VersionedEntity, WithDetails, WithTenantId,} from "../common";
+import {WithCloudStorageResources, WithRESTResources} from "../Application/ApplicationResource";
 import {WorkspaceId} from "../Workspace";
 import {
     WithConfigSchema,
@@ -19,16 +19,16 @@ interface ConnectorBase extends VersionedEntity<ConnectorId>,
     WithConfigValues,
     WithPollingConfig,
     WithSecuritySchemes,
-    WithTestResourcePath {
-    tenantId: string;
+    WithTestResourcePath,
+    WithTenantId {
     // externalDocs?: string;  // deprecated, use the one in resources.externalDocs
     logoUrl: string;
     preDefinedActions: ResourceBased[];
     preDefinedEvents: ResourceBased[];
 }
 
-export type RESTConnector = ConnectorBase & RESTResource;
-export type CloudStorageConnector = ConnectorBase & CloudStorageResource;
+export type RESTConnector = ConnectorBase & WithRESTResources;
+export type CloudStorageConnector = ConnectorBase & WithCloudStorageResources;
 export type Connector = RESTConnector | CloudStorageConnector;
 
 interface ResourceBased extends WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {

@@ -1,11 +1,17 @@
 import { Id, WithDetails, WithEnabled, WithId, WithType} from "../common";
 import {ActionId} from "../Action";
 import {WithConfigValues} from "../common/config";
+import {JourneyCondition} from "./JourneyCondition";
 // import {JourneyCondition} from "./Condition/EntityCondition";
 
 
 export const EndOfJourney = undefined;
 export type JourneyStepId = Id;
+
+export interface JourneyTrigger extends WithId<JourneyStepId>, WithDetails, WithEnabled {
+    condition: JourneyCondition;
+    then: JourneyStepId;
+}
 
 interface BaseJourneyStep extends WithId<JourneyStepId>, WithDetails, WithEnabled, WithType<'invoke' | 'decision' | 'wait' | 'empty'> {
     then?: JourneyStepId[];
@@ -25,7 +31,7 @@ export interface InvokeStep extends BaseJourneyStep {
 
 export interface DecisionStep extends BaseJourneyStep {
     type: 'decision';
-    // condition: JourneyCondition;
+    condition: JourneyCondition;
     else?: JourneyStepId[];
 }
 

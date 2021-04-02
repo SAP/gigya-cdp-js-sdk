@@ -1,6 +1,5 @@
-import {Entity, Id, Payload} from "../common";
-import {JourneyStep, JourneyStepId} from "./JourneySteps";
-import {JourneyCondition} from "./JourneyCondition";
+import {Entity, Id, ISODateTimeString, Payload} from "../common";
+import {JourneyStep, JourneyTrigger} from "./JourneySteps";
 import {BusinessUnitId} from "../BusinessUnit";
 import {ViewId} from "../View";
 
@@ -8,23 +7,19 @@ export type JourneyId = Id;
 
 export interface Journey extends Entity<JourneyId> {
     steps: JourneyStep[];
-    trigger: JourneyCondition;
-    then: JourneyStepId[];
+    trigger: JourneyTrigger;
+    state: JourneyStatus;
 }
 
 type JourneyStatus = {
     status: 'Ready' | 'In Provisioning' | 'Error';
-    errorDetails: string;
-};
-
-type WithJourneyState = {
-    state: JourneyStatus
+    since: ISODateTimeString;
 };
 
 interface JourneyEndpoints {
     '/businessunits/$bUnitId/views/$viewId/journeys/$journeyId': {
-        GET: (bUnitId: BusinessUnitId, viewId: ViewId, journeyId: JourneyId) => Promise<Journey & WithJourneyState>;
-        PUT: (bUnitId: BusinessUnitId, viewId: ViewId, journeyId: JourneyId, payload: Payload<Journey>) => Promise<Journey & WithJourneyState>;
+        GET: (bUnitId: BusinessUnitId, viewId: ViewId, journeyId: JourneyId) => Promise<Journey>;
+        PUT: (bUnitId: BusinessUnitId, viewId: ViewId, journeyId: JourneyId, payload: Payload<Journey>) => Promise<Journey>;
         DELETE: (bUnitId: BusinessUnitId, viewId: ViewId, journeyId: JourneyId) => Promise<void>;
     };
 

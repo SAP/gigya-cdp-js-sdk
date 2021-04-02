@@ -3,20 +3,32 @@ import {EntityApi} from "./ts-rest-client/interfaces/EntityApi"; // ts bug, impo
 import {
     Action,
     ActivityIndicator,
-    Application, ApplicationAuth, Audience,
-    BusinessUnit, Connector,
-    Event, Journey,
-    MergeRule, Purpose,
+    Application,
+    ApplicationAuth,
+    ApplicationPriority,
+    Audience,
+    BusinessUnit,
+    Connector,
+    CustomerSchema,
+    Event,
+    EventHistory,
+    EventStatus,
+    Journey,
+    MergeRule,
+    Purpose,
     Segment,
-    View, WithBusinessUnitId, WithProtected, WithProtectedFields, WithViewId,
+    View,
+    WithBusinessUnitId,
+    WithProtected,
+    WithProtectedFields,
+    WithViewId,
     Workspace
 } from "./entities";
 import {EventMapping} from "./entities/Event/EventMapping";
 import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
-import {CustomerSchema} from "./entities";
-import {Payload, WithId, WithMetaData, WithType} from "./entities/common";
+import {WithId, WithMetaData, WithType} from "./entities/common";
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -38,7 +50,7 @@ export type CDPEntitiesApi = {
     }>,
 
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
-        ucpschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
+        customerschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
         purposes: EntityApi<CDPEntityDef<Purpose>>;
 
@@ -48,20 +60,20 @@ export type CDPEntitiesApi = {
             auth: EntityApi<CDPEntityDef<ApplicationAuth>, {
                 test: EntityApi<CDPEntityDef<ApplicationAuth>>
             }>,
+            priority: EntityApi<CDPEntityDef<ApplicationPriority>>,
 
             dataevents: EntityApi<CDPEntityDef<Event>, {
-                schedules: EntityApi<CDPEntityDef<EventSchedule>>;
-                event: EntityApi;
-                activate: EntityApi;
-                status: EntityApi;
                 mappings: EntityApi<CDPEntityDef<EventMapping[]>>;
+                schedules: EntityApi<CDPEntityDef<EventSchedule>>;
+                event: EntityApi; // TODO: allow only POST
+                status: EntityApi<CDPEntityDef<EventStatus>>; // TODO: allow only GET
+                history: EntityApi<CDPEntityDef<EventHistory>>; // TODO: allow only GET
             }>;
 
             actions: EntityApi<CDPEntityDef<Action>, {
                 mappings: EntityApi<CDPEntityDef<ActionMapping[]>>;
                 activate: EntityApi;
             }>;
-
         }>;
 
         views: EntityApi<CDPEntityDef<View>, {
@@ -72,10 +84,9 @@ export type CDPEntitiesApi = {
 
             journeys: EntityApi<CDPEntityDef<Journey>>;
             audiences: EntityApi<CDPEntityDef<Audience>, {
-                export: EntityApi,
+                scheduled: EntityApi,
                 status: EntityApi,
             }>;
-            test: EntityApi<CDPEntityDef<{ vals: 'a' | 'b' | 'c' }>>;
         }>;
     }>;
 };

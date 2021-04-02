@@ -8,5 +8,7 @@ export type WithProtected = {
 export type ProtectedFieldName<F extends FieldName = FieldName> = `properties.${F}`;
 
 export type WithProtectedFields = {
-    protectedFields: Record<ProtectedFieldName, {}>;
+    protectedFields: Record<ProtectedFieldName, {
+        reasons: Array<"DS">;
+    }>;
 }

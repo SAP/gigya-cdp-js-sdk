@@ -1,11 +1,11 @@
-import {Entity, Id} from './common';
-import { WorkspaceId } from './Workspace';
+import {Entity, Id, WithTenantId} from './common';
+import {Workspace, WorkspaceId} from './Workspace';
 
 export type BusinessUnitId = Id;
 
-export interface BusinessUnit extends Entity<BusinessUnitId> {
+export interface BusinessUnit extends Entity<BusinessUnitId>, WithTenantId {
   workspaceId: WorkspaceId;
-  tenantId: string;
+  workspaceName: Workspace['name'];
 }
 
 export type WithBusinessUnitId = {

@@ -23,10 +23,19 @@ export type WithVersion<V = string> = {
   version: V;
 };
 
-export interface Entity<T = Id> extends WithId<T>, WithMetaData, WithDetails, WithEnabled {
+export type WithTenantId = {
+  tenantId: Id;
+};
+
+export interface StaticEntity<T = Id> extends WithId<T>, WithMetaData, WithDetails {
+}
+
+export interface Entity<T = Id> extends StaticEntity<T>, WithEnabled {
 }
 
 export interface VersionedEntity<T = Id> extends Entity<T>, WithVersion {
 }
 
 export type Payload<T extends Partial<Entity>> = Omit<T, keyof (WithId & WithMetaData & WithViewId)>;
+
+export type ISODateTimeString = string;

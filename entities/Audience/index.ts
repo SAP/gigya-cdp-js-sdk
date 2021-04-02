@@ -2,19 +2,16 @@ import {Entity, Id, Payload} from "../common";
 import {PurposeId} from "../purpose";
 import {ApplicationId} from "../Application";
 import {ActionId} from "../Action";
-import {BusinessUnitId} from "../BusinessUnit";
+import {BusinessUnitId, WithBusinessUnitId} from "../BusinessUnit";
 import {ViewId, WithViewId} from "../View";
 import {AudienceCondition} from "./AudienceCondition";
 
 export type AudienceId = Id;
-export interface Audience extends Entity<AudienceId>, WithViewId {
+export interface Audience extends Entity<AudienceId>, WithBusinessUnitId, WithViewId {
   query: AudienceCondition;
   purposeIds: PurposeId[];
-
-  // not for GA
-  // actions?: ActionId[];
-  // schedule?: {};
-  // readonly lastRunTime?: Date;
+  schedules: Id[];
+  gSqlQuery: string;
 }
 
 interface AudiencesEndpoints {
