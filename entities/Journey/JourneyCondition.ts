@@ -73,7 +73,7 @@ const condition: JourneyCondition = {
                 {
                     type: 'purpose',
                     purposeId: 'tracking',
-                    value: 'granted'
+                    value: 'Granted'
                 }
             ]
         },
