@@ -19,8 +19,8 @@ export type WithDetails = {
   description?: string;
 };
 
-export type WithVersion = {
-  version: number;
+export type WithVersion<V = string> = {
+  version: V;
 };
 
 export interface Entity<T = Id> extends WithId<T>, WithMetaData, WithDetails, WithEnabled {

@@ -14,17 +14,17 @@ import {WithCategory} from "../Action";
 export type ConnectorId = Id;
 
 interface ConnectorBase extends VersionedEntity<ConnectorId>,
-    WithCategory,
+    WithCategory<'marketing' | 'commerce' | 'service' | 'procurement' | 'other'>,
     WithConfigSchema,
     WithConfigValues,
     WithPollingConfig,
     WithSecuritySchemes,
     WithTestResourcePath {
     tenantId: string;
-    externalDocs?: string;
+    // externalDocs?: string;  // deprecated, use the one in resources.externalDocs
     logoUrl: string;
-    predefinedActions: ResourceBased[];
-    predefinedEvents: ResourceBased[];
+    preDefinedActions: ResourceBased[];
+    preDefinedEvents: ResourceBased[];
 }
 
 export type RESTConnector = ConnectorBase & RESTResource;

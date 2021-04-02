@@ -7,8 +7,8 @@ import {ApplicationId} from "../Application";
 import {BusinessUnitId} from "../BusinessUnit";
 
 export type ActionId = Id;
-export type WithCategory = {
-  category: string;
+export type WithCategory<CATS = string> = {
+  category: CATS;
 }
 export interface Action extends Entity<ActionId>, WithCategory, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {
   purposeIds: PurposeId[];

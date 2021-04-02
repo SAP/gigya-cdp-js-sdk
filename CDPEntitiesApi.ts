@@ -30,11 +30,11 @@ export type CDPEntityDef<T extends object, SFields extends keyof T = never> =
     EntityDef<T, Extract<keyof T, ServerOnlyFields | SFields>>
 
 export type CDPEntitiesApi = {
+    global: {
+        applibrary: EntityApi<CDPEntityDef<Connector>>,
+    },
     workspaces: EntityApi<CDPEntityDef<Workspace>, {
         applibrary: EntityApi<CDPEntityDef<Connector>>,
-        global: EntityApi<never, {
-            applibrary: EntityApi<CDPEntityDef<Connector>>,
-        }>;
     }>,
 
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
