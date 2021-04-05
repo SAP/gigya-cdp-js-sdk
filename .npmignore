@@ -7,3 +7,5 @@ specs/
 .gitignore
 tsconfig.json
 .idea/
+test.js
+test.ts
