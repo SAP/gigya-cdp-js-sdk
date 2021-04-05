@@ -1,7 +1,16 @@
 import request, {CoreOptions, Response} from "request";
 import {RawRequest} from "./request";
+import {AccessHeaders} from "./ts-rest-client";
 
-export function sendRequest<T>(req: RawRequest, options) {
+export const CallIdHeader = 'x-callid';
+
+export interface RequestOptions {
+    proxy?: string;
+    ignoreCertError?: boolean;
+    log(msg: string, ...args: any[]);
+}
+
+export function sendRequest<T>(req: RawRequest, options: RequestOptions) {
     const start = Date.now();
 
     const reqOptions: CoreOptions = {
@@ -15,16 +24,16 @@ export function sendRequest<T>(req: RawRequest, options) {
     }
 
     if (options.proxy) {
-        // this.log(`sending via proxy:`, this.options.proxy);
+        options.log(`sending via proxy:`, options.proxy);
         reqOptions.proxy = options.proxy;
         reqOptions.tunnel = false;
     }
 
     return new Promise<T>((resolve, reject) => request[req.method](
-        req.uri, reqOptions, (error: any, response: Response, body: any) => {
-            // this.log(`request to ${req.method.toUpperCase()} ${req.uri} took ${(Date.now() - start) / 1000} seconds`);
+        req.uri, reqOptions, (error: any, response: Response, body: string) => {
+            options.log(`request to ${req.method.toUpperCase()} ${req.uri} took ${(Date.now() - start) / 1000} seconds`);
             if (error) {
-                // this.log(`error:`, error, response, body);
+                options.log(`error:`, error, response, body);
                 reject({
                     errorCode: error.errno ?? 'unknown',
                     errorDetails: error.syscall == 'getaddrinfo' ? 'missing vpn connection?' : error,
@@ -32,11 +41,19 @@ export function sendRequest<T>(req: RawRequest, options) {
                 return;
             }
             try {
-                // this.log(body);
-                resolve(JSON.parse(body));
+                options.log(body);
+                resolve(
+                    Object.assign(JSON.parse(body),
+                        {
+                            [AccessHeaders]: response.headers,
+                            [CallIdHeader]: response.headers[CallIdHeader]?.toString()
+                        }
+                    )
+                );
             } catch (ex) {
-                // this.log(`failed to parse response body from request to ${req.uri}\n${body}`);
+                options.log(`failed to parse response body from request to ${req.uri}\n${body}`);
                 reject({error: ex, body});
             }
-        }));
+        })
+    );
 }

@@ -5,7 +5,7 @@ import {CDPEntitiesApi} from "./CDPEntitiesApi";
 import {AnonymousRequestSigner} from "./Signers/AnonymousRequestSigner";
 import {Headers} from "request";
 import {wrap} from "./ts-rest-client";
-import {sendRequest} from "./sendRequest";
+import {RequestOptions, sendRequest} from "./sendRequest";
 
 export type DataCenter = 'eu5' | `il1`;
 type StagingEnvs = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -27,29 +27,45 @@ export const enum PermissionGroup {
     ingest = '_cdp_ingestion'
 }
 
+interface CDPOptions extends RequestOptions {
+    protocol: HttpProtocol;
+    dataCenter: DataCenter;
+    env: Env;
+    baseDomain: string;
+    rootPath: string;
+    verboseLog: boolean;
+    anonymousPaths: RegExp[];
+    sendRequest: typeof sendRequest;
+}
+
 export class CDP {
-    public static DefaultOptions = {
-        protocol: 'https' as HttpProtocol,
-        dataCenter: 'eu5' as DataCenter,
-        env: 'prod' as Env,
+    public static readonly DefaultOptions: CDPOptions = {
+        protocol: 'https',
+        dataCenter: 'eu5',
+        env: 'prod',
         baseDomain: 'gigya.com',
         rootPath: 'api',
-        proxy: undefined as string,
+        proxy: undefined,
         ignoreCertError: false,
         verboseLog: false,
-        anonymousPaths: [] as RegExp[],
-        sendRequest: sendRequest
+        anonymousPaths: [],
+        sendRequest: sendRequest,
+        log(msg: string, ...args: any[]) {
+            if (this.verboseLog)
+                console.log(msg, ...args);
+        }
     };
 
+    public readonly options: CDPOptions;
     private _signer: ISigner;
     private _acls: { [wsId: string]: object } = {};
 
-    constructor(credentials: CredentialsType, public options: Partial<typeof CDP.DefaultOptions> = {}) {
+    constructor(credentials: CredentialsType, options: Partial<CDPOptions> = {}) {
         this.setCredentials(credentials);
         this.options = {
             ...CDP.DefaultOptions,
-            ignoreCertError: this.options.dataCenter?.startsWith('il1') ?? CDP.DefaultOptions.ignoreCertError,
-            ...this.options
+            ignoreCertError: options.dataCenter?.startsWith('il1') ?? CDP.DefaultOptions.ignoreCertError,
+            ...options
         };
     }
 
@@ -188,8 +204,7 @@ export class CDP {
     }
 
     private log(msg: string, ...args: any[]) {
-        if (this.options.verboseLog)
-            console.log(msg, ...args);
+        this.options.log(msg, ...args);
     }
 
     public get<T>(path: string, params?: object, headers?: Headers) {
