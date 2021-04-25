@@ -5,7 +5,7 @@ import {WithProtectedFields} from "./common/Field";
 export type SchemaId = Id;
 
 export interface WithSchema {
-    schema: string | JSONSchema7;
+    schema: JSONSchema7;
 }
 
 
