@@ -16,7 +16,8 @@ interface ApplicationBase extends Entity<ApplicationId>,
 }
 
 export interface ConnectorBasedApplication extends ApplicationBase, WithCategory, WithPollingConfig {
-    originConnectorId: ConnectorId;
+    originConnectorId?: ConnectorId;
+    connectorId?: ConnectorId;
     vendor?: string;
 }
 
