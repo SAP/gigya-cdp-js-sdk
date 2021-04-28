@@ -6,6 +6,7 @@ import {AnonymousRequestSigner} from "./Signers/AnonymousRequestSigner";
 import {Headers} from "request";
 import {wrap} from "./ts-rest-client";
 import {RequestOptions, sendRequest} from "./sendRequest";
+import {WithHeaders} from "./ts-rest-client/interfaces/EntityApiTypes";
 
 export type DataCenter = 'eu5' | `il1`;
 type StagingEnvs = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -15,7 +16,7 @@ export const availableEnvs: Record<DataCenter, Env[]> = {
     eu5: ['prod', ...createArray(1, n => `st${n + 1}` as Env)]
 };
 
-export type CDPErrorResponse = { errorCode: string };
+export type CDPErrorResponse = Partial<{ errorCode: string }> & WithHeaders;
 export const asCDPError = (e: unknown) => e as CDPErrorResponse;
 
 export function isCDPError(e: any): e is CDPErrorResponse {
@@ -75,7 +76,11 @@ export class CDP {
 
     private get admin() { // WIP
         return {
-            createWorkspace: ({tenantID = 'rnd', wsName = `ws-${new Date().toDateString()}`, buName = `business unit`}) => {
+            createWorkspace: ({
+                                  tenantID = 'rnd',
+                                  wsName = `ws-${new Date().toDateString()}`,
+                                  buName = `business unit`
+                              }) => {
                 return this.sendAdminReq<{ partnerID: string }>('createPartner', {
                     tenantID,
                     customData: {companyName: wsName},
