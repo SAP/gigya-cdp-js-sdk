@@ -3,7 +3,7 @@ export type ProfileFieldName = FieldName;
 export type ActivityFieldName = FieldName;
 
 export type WithProtected = {
-    isProtected: boolean;
+    isProtected?: boolean;
 }
 export type ProtectedFieldName<F extends FieldName = FieldName> = `properties.${F}`;
 

@@ -7,7 +7,7 @@ import {WithConfigValues} from "../common/config";
 export type EventId = Id;
 
 export interface Event extends Entity<EventId>, WithSchema, WithConfigValues {
-    schemaId: SchemaId;
+    schemaId?: SchemaId;
     purposeIds: PurposeId[];
     dataType: EventType | keyof EventType;
 }
