@@ -1,5 +1,8 @@
-# Gigya CDP SDK
-## Install
+# SAP CDC (Gigya) CDP SDK
+## Description
+The CDP SDK provides an interface for the configuring your CDP instance and sending events for ingestion.
+
+## Download and Installation
 ```
 npm i gigya-cdp-sdk
 ```
@@ -17,40 +20,30 @@ sdk.businessunits.for('123-buId').get().then(bu => bu.name);
 ```
 
 ### SDK Options
+When initializing the SDK instance, you can override several of its properties mentioned below with their defaults:
 ```typescript
 {
-    protocol: 'https' as HttpProtocol,
-    dataCenter: 'eu5' as DataCenter,
-    env: 'prod' as Env,
-    baseDomain: 'gigya.com',
-    rootPath: 'api',
     proxy: undefined as string, // e.g. 'http://127.0.0.1:8888'
-    ignoreCertError: false,
-    verboseLog: false
+    ignoreCertError: false, // for ignoring certificate errors when using a proxy
+    verboseLog: false // for informative logs
 }
 ```
 
-### Supported Entities
-* workspaces
-    * applibrary
-    * global/applibrary
-* businessunits
-    * mappings
-    * ucpschemas
-    * purposes
-    * activityIndicators ([)no autocomplete for conditions)
-    * segments (no autocomplete for conditions)
-    * applications
-        * dataevents
-            * schedule
-            * activate
-            * event ("ingest")
-        * actions
-            * mappings
-            * activate
-    * views
-        * matchRules
-        * matchRulesPriority
-        * mergeRules
-        * journeys
-        * audiences (with Condition)
+## Limitations
+None
+
+## Known Issues
+None
+
+## How to obtain support
+Via SAP standard support.
+https://developers.gigya.com/display/GD/Opening+A+Support+Incident
+
+## Contributing
+Via pull request to this repository.
+
+## To-Do (upcoming changes)
+None
+
+## Licensing
+Please see our [LICENSE](https://github.com/SAP/gigya-cdp-js-sdk/blob/main/LICENSES/Apache-2.0.txt) for copyright and license information.
