@@ -1,6 +1,7 @@
-# SAP CDC (Gigya) CDP SDK
+# SAP Customer Data Platform SDK (CDP SDK)
 ## Description
-The CDP SDK provides an interface for the configuring your CDP instance and sending events for ingestion.
+SAP Customer Data Platform's SDK provides an interface for the configuring your CDP instance and sending events for ingestion.
+By SAP Customer Data Cloud (SAP CDC Gigya).
 
 ## Download and Installation
 ```
