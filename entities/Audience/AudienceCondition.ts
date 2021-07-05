@@ -11,7 +11,7 @@ export type AudienceCondition = Condition<
     | PurposeCondition>;
 
 
-const conditionExample: AudienceCondition = {
+const conditionExample: AudienceCondition = {    // (profile.age > 18 AND < 42) AND (profile.city == 'TLV' OR profile.city == 'Washington')
     operator: "and",
     conditions: [
         {
@@ -66,7 +66,7 @@ const conditionExample: AudienceCondition = {
                                         type: 'string',
                                         value: 'Washington'
                                     }
-                                },
+                                }
                             ]
                         }
                     }
