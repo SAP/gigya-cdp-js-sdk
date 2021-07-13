@@ -6,6 +6,6 @@ export interface MergeRule {
         writePolicy: 'immutable' | 'mutable';
         maxValues: number;
         writeConflictRule: 'discardEvent' | 'createUcp';
-        isIdentifier?: boolean;
+        isProtected?: boolean;
     }>;
 }

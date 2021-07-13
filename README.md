@@ -1,4 +1,6 @@
 # SAP Customer Data Platform SDK (CDP SDK)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/gigya-cdp-js-sdk)](https://api.reuse.software/info/github.com/SAP/gigya-cdp-js-sdk)
+
 ## Description
 [SAP Customer Data Platform](https://help.sap.com/viewer/8438f051ded544d2ba1303e67fc5ff86/PROD/en-US/c3946f05ec914e7e8154fc5efa5a63d4.html)'s SDK provides an interface for the configuring your CDP instance and sending events for ingestion.
 By SAP Customer Data Cloud (SAP CDC Gigya).
