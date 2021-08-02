@@ -23,9 +23,19 @@ export function isCDPError(e: any): e is CDPErrorResponse {
     return !!(e as CDPErrorResponse).errorCode;
 }
 
-export const enum PermissionGroup {
+export const enum PermissionsGroup {
     sys_admins = '_cdp_sys_admins',
-    ingest = '_cdp_ingestion'
+    ingest = '_cdp_ingestion',
+    viewers = '_cdp_viewers',
+    super_admins = '_cdp_super_admins',
+    marketing_ops = '_cdp_marketing_ops',
+    marketer = '_cdp_marketer',
+    dpo_specialist = '_cdp_dpo_specialist',
+    developers = '_cdp_developers',
+    cs_viewers = '_cdp_cs_viewers',
+    cs_super_admins = '_cdp_cs_super_admins',
+    cs_admins = '_cdp_cs_admins',
+    sys_admin_workspace = 'cdp_sys_admin_workspace',
 }
 
 interface CDPOptions extends RequestOptions {
@@ -94,7 +104,7 @@ export class CDP {
                 for: (userKey = this._signer.userKey) => ({
                     in: (wsId: string) => ({
                         has: (...paths: string[]) => this.hasPermissions(wsId, ...paths),
-                        grant: (...groupIds: PermissionGroup[]) => {
+                        grant: (...groupIds: PermissionsGroup[]) => {
                             return Promise.all(groupIds.map(groupID => this.sendAdminReq('updateGroup', {
                                 groupID,
                                 addUsers: userKey

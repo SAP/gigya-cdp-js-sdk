@@ -12,7 +12,7 @@ export function getSigner(credentials: CredentialsType): ISigner | null {
     if (isAnonymous(credentials)) {
         return new AnonymousRequestSigner();
     } else if (!isCredentials(credentials)) {
-        throw 'missing credentials userkey and secret/privateKey';
+        throw 'missing loginCredentials userkey and secret/privateKey';
     } else if (isRSACreds(credentials)) {
         return new AuthBearerSigner(credentials);
     } else if (isSecretCredentials(credentials)) {
@@ -21,6 +21,6 @@ export function getSigner(credentials: CredentialsType): ISigner | null {
             new SimpleRequestSigner(credentials)
             : new CredentialsSigner(credentials);
     } else {
-        throw 'missing credentials secret/privateKey';
+        throw 'missing loginCredentials secret/privateKey';
     }
 }
