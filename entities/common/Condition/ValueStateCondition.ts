@@ -1,6 +1,10 @@
 import {Condition, SimpleCondition} from "./Condition";
+import {WithType} from "../index";
 
-type Operand<T extends string, V extends string | number | boolean> = { type: T; value: V };
+export interface Operand<T extends string, V extends string | number | boolean>
+    extends WithType<T> {
+    value: V
+}
 
 type GeneralValueOperator = 'equal' | 'equalWhenExists' | 'notEqual';
 

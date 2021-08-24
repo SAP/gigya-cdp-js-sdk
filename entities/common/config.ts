@@ -1,5 +1,4 @@
 import {JSONSchema7} from "json-schema";
-import {WithType} from "./index";
 import {PagingConfig} from "./PagingConfig";
 
 export type ConfigOverrideScope = 'application' | 'action' | 'journey-action' | 'event';

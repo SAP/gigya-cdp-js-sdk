@@ -38,3 +38,7 @@ export interface VersionedEntity<T = Id> extends Entity<T>, WithVersion {
 export type Payload<T extends Partial<Entity>> = Omit<T, keyof (WithId & WithMetaData & WithViewId)>;
 
 export type ISODateTimeString = string;
+
+export interface WithOperator<T> {
+  operator: T;
+}

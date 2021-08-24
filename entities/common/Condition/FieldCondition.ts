@@ -1,13 +1,17 @@
 import {Condition, SimpleCondition} from "./Condition";
 import {ValueCondition, ValueStateCondition, WithArrayCondition, WithTimeRange} from "./ValueStateCondition";
-import {FieldName} from "../Field";
+import {FieldName, WithField} from "../Field";
 
-export interface FieldStateCondition extends SimpleCondition, Partial<WithArrayCondition & WithTimeRange> {
-    field: string;
+export interface FieldStateCondition
+    extends SimpleCondition,
+            WithField,
+            Partial<WithArrayCondition & WithTimeRange> {
     condition: Condition<ValueStateCondition>
 }
 
-export interface FieldCondition<F extends FieldName = FieldName> extends SimpleCondition, Partial<WithArrayCondition & WithTimeRange> {
-    field: F;
+export interface FieldCondition<F extends FieldName = FieldName>
+    extends SimpleCondition,
+            WithField<F>,
+            Partial<WithArrayCondition & WithTimeRange> {
     condition: Condition<ValueCondition>;
 }

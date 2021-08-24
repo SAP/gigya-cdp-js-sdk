@@ -1,8 +1,12 @@
+import {Operand} from "../common/Condition";
+import {WithField} from "../common/Field";
+import {WithOperator} from "../common";
+
 interface Calculation {
 }
 
-export interface CalculationMethod extends Calculation {
-    field: string;
+export interface CalculationMethod
+    extends Calculation, WithField {
     method: 'max' | 'min' | 'sum' | 'count' | 'average' | 'standardDeviation' | 'firstOccurrence' | 'lastOccurrence';
 }
 
@@ -10,21 +14,21 @@ export interface BaseCalculatedField extends Calculation {
 
 }
 
-export interface SimpleCalculatedField extends BaseCalculatedField {
-    field: string;
+export interface SimpleCalculatedField
+    extends BaseCalculatedField, WithField {
     //operations: Array<{ type: 'floor' }>;
 }
 
-export interface SimpleValue extends BaseCalculatedField {
-    value: number;
-}
-
-export interface ComplexCalculatedField extends BaseCalculatedField {
-    operator: 'subtract' | 'sum' | 'divide' | 'multiply';
+export interface ComplexCalculatedField
+    extends BaseCalculatedField,
+            WithOperator<'subtract' | 'add' | 'divide' | 'multiply'> {
     operands: Array<CalculatedField>;
 }
 
-export type CalculatedField = SimpleCalculatedField | SimpleValue | ComplexCalculatedField;
+export type CalculatedField =
+    SimpleCalculatedField
+    | ComplexCalculatedField
+    | Operand<"number", number>;
 
 
 // exp: (amount - (localDiscount + productDiscount))
@@ -35,7 +39,7 @@ const complexAttribute: ComplexCalculatedField = {
             field: 'amount'
         },
         {
-            operator: 'sum',
+            operator: 'add',
             operands: [
                 {
                     field: 'localDiscount'
