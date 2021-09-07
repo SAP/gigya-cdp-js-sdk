@@ -1,30 +1,39 @@
 import {WithViewId} from "../View";
 
 export type Id = string;
-export type WithType<T> = { type: T; };
-export type WithId<T = Id> = { id: T };
+export interface WithType<T> {
+  type: T;
+}
 
-export type WithEnabled = {
+export interface WithId<T = Id> {
+  id: T
+}
+
+export interface WithEnabled {
   enabled: boolean;
-};
+}
 
-export type WithMetaData = {
+export interface WithMetaData {
   created: Date | ISODateTimeString;
   updated: Date | ISODateTimeString;
-};
+}
 
-export type WithDetails = {
+export interface WithDetails {
   name: string;
   description?: string;
-};
+}
 
-export type WithVersion<V = string> = {
+export interface WithVersion<V = string> {
   version: V;
-};
+}
 
-export type WithTenantId = {
+export interface WithTenantId {
   tenantId: Id;
-};
+}
+
+export type WithCategory<CATS = string> = {
+  category: CATS;
+}
 
 export interface StaticEntity<T = Id> extends WithId<T>, WithMetaData, WithDetails {
 }

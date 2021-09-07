@@ -28,7 +28,7 @@ import {EventMapping} from "./entities/Event/EventMapping";
 import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
-import {Id, WithId, WithMetaData, WithType} from "./entities/common";
+import {Id, WithId, WithMetaData, WithTenantId, WithType} from "./entities/common";
 import {Customer} from "./entities/Customer";
 import {InboundPurposes} from "./entities/InboundPurposes";
 
@@ -37,6 +37,7 @@ export type ServerOnlyFields = keyof (
     & WithProtected
     & WithProtectedFields
     & WithMetaData
+    & WithTenantId
     & WithBusinessUnitId &
     WithViewId);
 
