@@ -2,9 +2,10 @@ import {SecuritySchemeName} from "../Connector/Auth";
 import {CloudStorageApplication} from "./CloudStorageApplication";
 import {RESTApplication} from "./RESTApplication";
 import {DirectApplication} from "./DirectApplication";
+import {WebClientApplication} from "./WebClientApplication";
 
 export {ApplicationId} from "./common";
-export type Application = DirectApplication | RESTApplication | CloudStorageApplication;
+export type Application = DirectApplication | RESTApplication | CloudStorageApplication | WebClientApplication;
 export type ApplicationType = Application['type'];
 
 export interface ApplicationAuth {

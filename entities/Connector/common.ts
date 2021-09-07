@@ -1,5 +1,6 @@
 import {Id, VersionedEntity, WithCategory, WithDetails, WithTenantId, WithType} from "../common";
 import {
+    ResourcePath,
     WithConfigSchema,
     WithConfigValues,
     WithPollingConfig,
@@ -14,7 +15,7 @@ export type ResourceApplication<T extends string, RES extends object> = WithType
 
 export type ConnectorId = Id;
 
-interface ResourceBased extends WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {
+export interface ResourceBased extends WithDetails, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {
 }
 
 export interface ConnectorBase extends VersionedEntity<ConnectorId>,
@@ -27,6 +28,6 @@ export interface ConnectorBase extends VersionedEntity<ConnectorId>,
     WithTenantId {
     // externalDocs?: string;  // deprecated, use the one in resources.externalDocs
     logoUrl: string;
-    preDefinedActions: ResourceBased[];
-    preDefinedEvents: ResourceBased[];
+    preDefinedActions: Array<ResourceBased>;
+    preDefinedEvents: Array<ResourceBased>;
 }

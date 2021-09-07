@@ -1,23 +1,21 @@
 import {JSONSchema7} from "json-schema";
 import {WithType} from "../common";
 
-export type AuthTypes = 'basic'|'oauth2';
-
-export interface AuthBase extends WithType<AuthTypes> {
+export interface CustomAuth extends JSONSchema7, WithType<'object'> {
 }
 
-export interface CustomAuth extends JSONSchema7 {
-  type: 'object';
+export interface BasicAuth extends WithType<'basic'> {
 }
 
-export interface BasicAuth extends AuthBase {
-  type: 'basic';
-}
-export interface OAuth2 extends AuthBase {
-  type: 'oauth2';
+export interface OAuth2 extends WithType<'oauth2'> {
 }
 
-export type Authentication = BasicAuth | OAuth2 | CustomAuth;
+export interface WSSE extends WithType<'wsse'> {
+}
+
+export type Authentication = BasicAuth | OAuth2 | WSSE | CustomAuth;
+
+export type AuthTypes = Authentication['type'];
 
 export type SecuritySchemeName = string;
 

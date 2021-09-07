@@ -1,10 +1,19 @@
 import {Entity, Id, WithCategory} from "../common";
 import {PurposeId} from "../Purpose";
 import {WithConfigValues, WithResourcePath} from "../common/config";
+import {ApplicationType} from "../Application";
+import {DirectApplication} from "../Application/DirectApplication";
+import {WebClientApplication} from "../Application/WebClientApplication";
 
 export type ActionId = Id;
+export type ActionType = Exclude<ApplicationType, DirectApplication['type'] | WebClientApplication['type']>;
 
-export interface Action extends Entity<ActionId>, WithCategory, WithResourcePath, /*WithConfigSchema,*/ WithConfigValues {
+export interface Action
+    extends Entity<ActionId>,
+            WithCategory,
+            WithResourcePath,
+            /*WithConfigSchema,*/
+            WithConfigValues {
   purposeIds: PurposeId[];
 }
 
