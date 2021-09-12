@@ -6,7 +6,7 @@ export type SegmentValue = string;
 
 export interface Segment extends Entity<SegmentName> {
     values: Array<{
-        condition: object; // Waiting for backend:  SegmentRuleCondition
+        condition: SegmentRuleCondition
         value: SegmentValue;
     }>;
 }
