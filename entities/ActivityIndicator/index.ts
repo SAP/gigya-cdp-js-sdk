@@ -11,6 +11,6 @@ export interface ActivityIndicator extends Entity<ActivityIndicatorId>, WithProt
   schemaId: ActivitySchemaId;
   dateRange: DateRange;
   calculationMethod: CalculationMethod | CalculatedField;
-  condition: ActivityIndicatorRuleCondition;
+  condition?: ActivityIndicatorRuleCondition;
 }
 

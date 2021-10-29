@@ -18,7 +18,7 @@ export interface ExistCondition {
 
 interface NumericCondition {
     operator: GeneralValueOperator | 'greaterThan' | 'greaterThanOrEqual' | 'lessThan' | 'lessThanOrEqual';
-    operand: Operand<'long' | 'double', number>;
+    operand: Operand<'long' | 'double' | 'number', number>;
 }
 
 interface StringCondition {
