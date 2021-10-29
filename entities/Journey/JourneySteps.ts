@@ -39,20 +39,78 @@ export interface WaitStep extends BaseJourneyStep {
     type: 'wait';
 }
 
-export interface WaitForChangeStep extends WaitStep {
-    type: 'wait';
-    // condition: JourneyCondition;
+export interface WithExpiration {
+    expiration: Date | Partial<{
+        hours: number;
+        days: number;
+        months: number;
+    }>;
 }
 
-export interface WaitUntil extends WaitStep {
-    type: 'wait';
-    until: Date;
+export interface WaitUntil extends WaitStep, WithExpiration {
+
 }
 
-export interface WaitFor extends WaitStep {
-    type: 'wait';
-    hours?: number;
-    days?: number;
+export interface WaitForCondition extends WaitStep, Partial<WithExpiration> {
+    condition: JourneyCondition;
+    onExpiration?: JourneyStepId[];
 }
 
-export type JourneyStep = EmptyStep | InvokeStep | DecisionStep | WaitForChangeStep | WaitUntil | WaitFor;
+export type JourneyStep = EmptyStep | InvokeStep | DecisionStep | WaitForCondition | WaitUntil;
+
+
+
+
+// examples
+const waitForTomorrowStep: WaitUntil = {
+    type: 'wait',
+    id: '123',
+    enabled: true,
+    name: 'wait for tomorrow',
+    description: '',
+    expiration: {days: 1},
+    then: ['next step']
+};
+
+const waitForNextYearStep: WaitUntil = {
+    type: 'wait',
+    id: '123',
+    enabled: true,
+    name: 'wait for tomorrow',
+    description: '',
+    expiration: new Date('01-01-2022'),
+    then: ['next step']
+};
+
+const waitForVIPSegment: WaitForCondition = {
+    type: 'wait',
+    id: '123',
+    enabled: true,
+    name: 'wait vip seg',
+    description: '',
+    condition: {
+        type: 'segment',
+        name: 'VIP',
+        operator: 'entered'
+    },
+    then: ['next step']
+};
+
+const waitForVIPSegmentWithExpiration: WaitForCondition = {
+    type: 'wait',
+    id: '123',
+    enabled: true,
+    name: 'wait vip seg',
+    description: '',
+    condition: {
+        type: 'segment',
+        name: 'VIP',
+        operator: 'entered'
+    },
+    then: ['next step'],
+    expiration: {
+        months: 1,
+        days: 10
+    },
+    onExpiration: ['send another email reminder']
+};
