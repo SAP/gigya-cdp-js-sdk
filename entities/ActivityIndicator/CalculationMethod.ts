@@ -15,7 +15,7 @@ export interface CalculationMethod
 }
 
 export interface BaseCalculatedField extends Calculation {
-
+    default?: number;
 }
 
 export interface SimpleCalculatedField
