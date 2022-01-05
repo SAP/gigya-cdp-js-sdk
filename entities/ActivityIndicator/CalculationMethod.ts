@@ -31,9 +31,10 @@ export interface ArrayReduceField extends SimpleCalculatedField { // TODO: count
     }
 }
 
+export type WithNumOperator = WithOperator<'subtract' | 'add' | 'divide' | 'multiply'>;
+
 export interface ComplexCalculatedField
-    extends BaseCalculatedField,
-            WithOperator<'subtract' | 'add' | 'divide' | 'multiply'> {
+    extends BaseCalculatedField, WithNumOperator {
     operands: Array<CalculatedField>;
 }
 

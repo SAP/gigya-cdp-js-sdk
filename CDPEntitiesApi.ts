@@ -31,6 +31,7 @@ import {ActionMapping} from "./entities/Action/ActionMapping";
 import {Id, WithId, WithMetaData, WithTenantId, WithType} from "./entities/common";
 import {Customer} from "./entities/Customer";
 import {InboundPurposes} from "./entities/InboundPurposes";
+import {CalculatedIndicator} from "./entities/CalculatedIndicator";
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -57,6 +58,7 @@ export type CDPEntitiesApi = {
 
         purposes: EntityApi<CDPEntityDef<Purpose>>;
 
+        calculatedIndicators: EntityApi<CDPEntityDef<CalculatedIndicator>>;
         activityIndicators: EntityApi<CDPEntityDef<ActivityIndicator>>;
         segments: EntityApi<CDPEntityDef<Segment>>;
         applications: EntityApi<CDPEntityDef<Application, keyof WithType<any>>, {
