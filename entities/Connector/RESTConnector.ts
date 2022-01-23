@@ -9,5 +9,12 @@ type WebhookBased = Omit<ResourceBased, keyof WithResourcePath> & {
 };
 
 export interface RESTConnector extends ConnectorBase, WithRESTResources {
+    preDefinedEvents: Array<ResourceBased & {
+        enrichments: Array<{
+            enrichmentPoint: string;
+            toRequest: {},
+            fromResponse: {}
+        }>
+    }>;
     preDefinedEventListeners: Array<WebhookBased>;
 }

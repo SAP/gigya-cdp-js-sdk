@@ -1,8 +1,8 @@
 import {WithViewId} from "./View";
 import {Id, ISODateTimeString, WithMetaData} from "./common";
 import {ProfileFieldName} from "./common/Field";
-import {ActivityIndicatorName} from "./ActivityIndicator";
-import {CalculationMethod} from "./ActivityIndicator/CalculationMethod";
+import {ActivityIndicatorName} from "./indicators/ActivityIndicator";
+import {CalculationMethod} from "./indicators/ActivityIndicator/CalculationMethod";
 import {SegmentName, SegmentValue} from "./Segment";
 import {Purpose, PurposeId, PurposeStatus} from "./Purpose";
 

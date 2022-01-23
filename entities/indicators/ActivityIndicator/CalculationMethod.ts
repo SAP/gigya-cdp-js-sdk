@@ -1,6 +1,6 @@
-import {FieldCondition, Operand} from "../common/Condition";
-import {WithField} from "../common/Field";
-import {WithOperator} from "../common";
+import {FieldCondition, Operand} from "../../common/Condition";
+import {WithField} from "../../common/Field";
+import {WithOperator} from "../../common";
 
 interface WithCalculationField {
     calculatedField: CalculatedField;
