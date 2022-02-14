@@ -1,6 +1,6 @@
 {
   "name": "gigya-cdp-sdk",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "gigya cdp sdk",
   "main": "index.js",
   "scripts": {
