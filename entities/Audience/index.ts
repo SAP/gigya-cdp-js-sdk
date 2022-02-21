@@ -1,5 +1,5 @@
 import {Entity, Id, Payload} from "../common";
-import {PurposeId} from "../purpose";
+import {PurposeId} from "../Purpose";
 import {ApplicationId} from "../Application";
 import {ActionId} from "../Action";
 import {BusinessUnitId, WithBusinessUnitId} from "../BusinessUnit";

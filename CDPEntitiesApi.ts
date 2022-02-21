@@ -28,10 +28,13 @@ import {EventMapping} from "./entities/Event/EventMapping";
 import {EventSchedule} from "./entities/Event/EventSchedule";
 import {MatchingRule, MatchingRulePriority} from "./entities/MatchingRule";
 import {ActionMapping} from "./entities/Action/ActionMapping";
-import {Id, WithId, WithMetaData, WithTenantId, WithType} from "./entities/common";
-import {Customer} from "./entities/Customer";
-import {InboundPurposes} from "./entities/InboundPurposes";
+import { WithId, WithMetaData, WithTenantId, WithType} from "./entities/common";
+import {InboundPurposes} from "./entities/Purpose/InboundPurposes";
 import {CalculatedIndicator} from "./entities/indicators/CalculatedIndicator";
+import {CustomerEntity} from "./entities/CustomerEntity";
+import {CustomerActivity} from "./entities/Customer/CustomerActivity";
+import {CustomerProfile} from "./entities/Customer/CustomerProfile";
+import {Relationship} from "./entities/Relationship";
 
 export type ServerOnlyFields = keyof (
     WithId
@@ -54,6 +57,15 @@ export type CDPEntitiesApi = {
     }>,
 
     businessunits: EntityApi<CDPEntityDef<BusinessUnit>, {
+
+        schemas: EntityApi<CDPEntityDef<CustomerEntity>, {
+            relationships: EntityApi<CDPEntityDef<Relationship>>;
+            matchRules: EntityApi<CDPEntityDef<MatchingRule>>;
+            journeys: EntityApi<CDPEntityDef<Journey>, {
+                statsPayloads: EntityApi<CDPEntityDef<Journey>>
+            }>,
+        }>;
+
         customerschemas: EntityApi<CDPEntityDef<CustomerSchema>>;
 
         purposes: EntityApi<CDPEntityDef<Purpose>>;
@@ -61,6 +73,7 @@ export type CDPEntitiesApi = {
         calculatedIndicators: EntityApi<CDPEntityDef<CalculatedIndicator>>;
         activityIndicators: EntityApi<CDPEntityDef<ActivityIndicator>>;
         segments: EntityApi<CDPEntityDef<Segment>>;
+
         applications: EntityApi<CDPEntityDef<Application, keyof WithType<any>>, {
             auth: EntityApi<CDPEntityDef<ApplicationAuth>, {
                 test: EntityApi<CDPEntityDef<ApplicationAuth>>
@@ -89,17 +102,14 @@ export type CDPEntitiesApi = {
             mergeRules: EntityApi<CDPEntityDef<MergeRule>>;
 
             journeys: EntityApi<CDPEntityDef<Journey>>;
+
             audiences: EntityApi<CDPEntityDef<Audience>, {
                 scheduled: EntityApi,
                 status: EntityApi,
             }>;
-
-            customers: EntityApi<CDPEntityDef<{
-                profiles: Customer[];
-                count: number;
-                totalCount: number;
-                nextCursorId: Id;
-            }>>; // TODO: allow only GET
+            customers: EntityApi<CDPEntityDef<CustomerProfile>, { // TODO: allow only GET
+                activities: { get({ query: string }): Promise<CustomerActivity> }
+            }>;
         }>;
     }>;
 };
