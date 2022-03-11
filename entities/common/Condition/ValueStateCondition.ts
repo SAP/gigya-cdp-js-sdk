@@ -1,5 +1,5 @@
 import {Condition, SimpleCondition} from "./Condition";
-import {WithType} from "../index";
+import {ISODateTimeString, WithType} from "../index";
 
 export interface Operand<T extends string, V extends string | number | boolean>
     extends WithType<T> {
@@ -29,7 +29,7 @@ interface StringCondition {
 export type DateCondition = (
     {
         operator: GeneralValueOperator | 'before' | 'after';
-        operand: Operand<'date', string>;
+        operand: Operand<'date', ISODateTimeString | '$lastRuntime'>;
     }
     | {
     operator: 'inThePast' | 'inTheFuture';
