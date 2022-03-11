@@ -14,12 +14,12 @@ import {PurposeStatus} from "../../Purpose";
 // TODO: clearout "state" condition entities
 
 export interface ProfileStateCondition extends SimpleCondition {
-    type: 'profile'
+    type: 'profile'|'entity';
     fieldCondition?: Condition<FieldStateCondition>;
 }
 
 export interface ProfileCondition extends SimpleCondition {
-    type: 'profile'
+    type: 'profile'|'entity';
     operator?: 'created' | 'updated';
     fieldCondition?: Condition<FieldCondition<ProfileFieldName>>;
 }
