@@ -1,13 +1,12 @@
-import {Entity, Id} from "../common";
+import {Id} from "../../common";
 import {CalculatedField, CalculationMethod} from "./CalculationMethod";
 import {DateRange} from "./DateRange";
-import {ActivitySchemaId} from "../Schema";
-import {WithProtected} from "..";
+import {ActivitySchemaId} from "../../Schema";
 import {ActivityIndicatorRuleCondition} from "./ActivityIndicatorRuleCondition";
+import {IndicatorBase} from "../IndicatorBase";
 
 export type ActivityIndicatorName = Id;
-export type ActivityIndicatorId = Id;
-export interface ActivityIndicator extends Entity<ActivityIndicatorId>, WithProtected {
+export interface ActivityIndicator extends IndicatorBase {
   schemaId: ActivitySchemaId;
   dateRange: DateRange;
   calculationMethod: CalculationMethod | CalculatedField;

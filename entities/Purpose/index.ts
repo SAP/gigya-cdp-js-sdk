@@ -1,8 +1,8 @@
-import {Id, StaticEntity} from './common';
-import {SegmentName} from "./Segment";
-import {ActivityIndicatorName} from "./ActivityIndicator";
-import {ActivityFieldName, ProfileFieldName} from "./common/Field";
-import {ActivitySchemaName} from "./Schema";
+import {Id, StaticEntity} from '../common';
+import {SegmentName} from "../Segment";
+import {ActivityIndicatorName} from "../indicators/ActivityIndicator";
+import {ActivityFieldName, ProfileFieldName} from "../common/Field";
+import {ActivitySchemaName} from "../Schema";
 
 export type PurposeId = Id;
 

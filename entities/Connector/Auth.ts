@@ -1,7 +1,8 @@
 import {JSONSchema7} from "json-schema";
 import {WithType} from "../common";
 
-export interface CustomAuth extends JSONSchema7, WithType<'object'> {
+export interface CustomAuth extends JSONSchema7 {
+  type: 'object'
 }
 
 export interface BasicAuth extends WithType<'basic'> {

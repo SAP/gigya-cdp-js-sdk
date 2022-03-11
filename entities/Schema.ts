@@ -18,7 +18,9 @@ export enum SchemaType {
     Activity,
     Privacy,
     Segment,
-    ActivityIndicator
+    ActivityIndicator,
+    Group = 5,
+    Relationship = 6
 }
 
 export type ProfileSchemaName = 'profile';
