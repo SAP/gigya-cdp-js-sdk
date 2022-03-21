@@ -1,4 +1,4 @@
-import {Entity, Id, Payload} from "../common";
+import {Entity, Id, Payload, WithType} from "../common";
 import {PurposeId} from "../Purpose";
 import {ApplicationId} from "../Application";
 import {BusinessUnitId, WithBusinessUnitId} from "../BusinessUnit";
@@ -17,7 +17,10 @@ export interface DeprecatedAudience extends Entity<AudienceId>, WithBusinessUnit
     gSqlQuery: string;
 }
 
-export interface Audience extends Entity<AudienceId>, WithBusinessUnitId, Partial<WithViewId> {
+export interface Audience
+    extends Entity<AudienceId>,
+            WithBusinessUnitId,
+            Partial<WithViewId & WithType<'audience' | 'export'>> {
     queries: Array<{
         readonly order?: number;
         schemaId: SchemaId; // entity schema id [profile|group]
