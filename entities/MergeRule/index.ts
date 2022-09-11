@@ -1,8 +1,8 @@
-import {ProfileFieldName, WithProtected} from "../common/Field";
+import {AttributeFieldName, WithProtected} from "../common/Field";
 
 export interface MergeRule {
-    properties: Record<ProfileFieldName, Partial<WithProtected> & {
-        name: ProfileFieldName;
+    properties: Record<AttributeFieldName, Partial<WithProtected> & {
+        name: AttributeFieldName;
         writePolicy: 'immutable' | 'mutable';
         maxValues: number;
         writeConflictRule: 'discardEvent' | 'createUcp';

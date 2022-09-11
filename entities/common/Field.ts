@@ -1,7 +1,7 @@
 import {WithMetaData} from "./index";
 
 export type FieldName = string;
-export type ProfileFieldName = FieldName;
+export type AttributeFieldName = FieldName; // either from the profile or group schema
 export type ActivityFieldName = FieldName;
 
 export type WithProtected = {

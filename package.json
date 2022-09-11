@@ -4,7 +4,8 @@
   "description": "gigya cdp sdk",
   "main": "index.js",
   "scripts": {
-    "start": "tsc"
+    "start": "tsc",
+    "test": "npm start && node test.js"
   },
   "repository": {
     "type": "git",
