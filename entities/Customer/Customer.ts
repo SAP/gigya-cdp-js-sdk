@@ -1,6 +1,6 @@
 import {WithViewId} from "../View";
 import {Id, ISODateTimeString, WithMetaData} from "../common";
-import {ProfileFieldName} from "../common/Field";
+import {AttributeFieldName} from "../common/Field";
 import {ActivityIndicatorName} from "../indicators/ActivityIndicator";
 import {CalculationMethod} from "../indicators/ActivityIndicator/CalculationMethod";
 import {SegmentName, SegmentValue} from "../Segment";
@@ -11,7 +11,7 @@ export interface Customer extends WithViewId, WithMetaData {
     lastSeen: ISODateTimeString;
     firstSeen: ISODateTimeString;
 
-    attributes: Record<ProfileFieldName, any>;
+    attributes: Record<AttributeFieldName, any>;
     activityIndicators: Array<{
         name: ActivityIndicatorName;
         updated: WithMetaData['updated'];
