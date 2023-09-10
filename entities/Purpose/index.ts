@@ -13,6 +13,8 @@ export interface Purpose extends StaticEntity<PurposeId> {
   customerSegments?: SegmentName[];
   customerActivityIndicators?: ActivityIndicatorName[];
   customerActivities?: Record<ActivitySchemaName, ActivityFieldName[]>;
+  customerPredictiveIndicators?: string[];
+  customerCalculatedIndicators?: string[];
 }
 
 export type PurposeStatus = 'Granted' | 'Withdrawn';
